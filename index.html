@@ -165,6 +165,19 @@
   .project > *{position:relative}
   .project .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
   .project h4{font-family:Unbounded;font-weight:700;font-size:24px;text-transform:uppercase}
+  .case{display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;background:var(--bg-2);border:1px solid var(--line);transition:transform .35s,border-color .35s}
+  .case:hover{transform:translateY(-6px);border-color:rgba(176,14,216,.5)}
+  .case-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:#000}
+  .case-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s}
+  .case:hover .case-img img{transform:scale(1.04)}
+  .case-badge{position:absolute;top:18px;left:18px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:rgba(11,11,13,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15)}
+  .case-body{padding:26px 28px 30px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .case .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .case h4{font-family:Unbounded;font-weight:700;font-size:26px;text-transform:uppercase}
+  .case p{color:#b5b5bd;font-size:15px;flex:1}
+  .case-link{margin-top:10px;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;align-self:flex-start}
+  .project-cta{grid-column:1/-1;aspect-ratio:auto;min-height:200px}
+  .note-concept{margin-top:20px;font-size:13px;color:#6b6b73}
   .project .soon{position:absolute;top:28px;left:30px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
 
   /* ---------- FAQ ---------- */
@@ -487,15 +500,36 @@
         <span class="eyebrow reveal">/ Портфолио</span>
         <h2 class="h2 display reveal">Проекты</h2>
       </div>
-      <p class="reveal">Здесь скоро появятся мои работы. А пока — можете стать первым клиентом со скидкой.</p>
+      <p class="reveal">Концепты редизайна реальных сайтов: беру устаревший сайт и показываю, каким он может быть. Оба открываются вживую.</p>
     </div>
-    <!-- Замени карточки на реальные проекты: добавь <img> внутрь .project и поменяй тексты -->
     <div class="projects">
-      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">Сайт</span><h4>Проект 01</h4></a>
-      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">Telegram-бот</span><h4>Проект 02</h4></a>
-      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">AI-агент</span><h4>Проект 03</h4></a>
-      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">Лендинг</span><h4>Проект 04</h4></a>
+      <a href="https://klozifia.github.io/questos/" target="_blank" rel="noopener" class="case reveal">
+        <div class="case-img">
+          <picture><source srcset="projects/questos.webp" type="image/webp"><img src="projects/questos.jpg" alt="Концепт редизайна сайта Questos" loading="lazy" width="1200" height="750"></picture>
+          <span class="case-badge">Концепт</span>
+        </div>
+        <div class="case-body">
+          <span class="tag">Редизайн · Квест-комната, Новосибирск</span>
+          <h4>Questos</h4>
+          <p>Атмосферный тёмный сайт вместо устаревшего: понятные цены, звонок для брони в одно касание, удобная мобильная версия.</p>
+          <span class="case-link">Смотреть сайт ↗</span>
+        </div>
+      </a>
+      <a href="https://klozifia.github.io/en126/" target="_blank" rel="noopener" class="case reveal">
+        <div class="case-img">
+          <picture><source srcset="projects/en126.webp" type="image/webp"><img src="projects/en126.jpg" alt="Концепт редизайна сайта Encounter 126" loading="lazy" width="1200" height="750"></picture>
+          <span class="case-badge">Концепт · 3D</span>
+        </div>
+        <div class="case-body">
+          <span class="tag">Редизайн · Городские игры Encounter, КМВ</span>
+          <h4>Encounter 126</h4>
+          <p>Ночной 3D-город на Three.js, таймер до ближайшей игры, архив, рейтинг авторов и статистика — на реальных данных.</p>
+          <span class="case-link">Смотреть сайт ↗</span>
+        </div>
+      </a>
+      <a href="#lead" class="project project-cta reveal"><span class="soon">Свободно</span><span class="tag">Ваш проект</span><h4>Здесь может быть ваш сайт</h4></a>
     </div>
+    <p class="note-concept reveal">Концепты — неофициальные макеты, сделанные по собственной инициативе. Не являются сайтами указанных компаний.</p>
   </div>
 </section>
 
