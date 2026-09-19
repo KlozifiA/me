@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tavus — Артём, веб-разработчик</title>
+<meta name="description" content="Артём / Tavus — разработка сайтов, Telegram-ботов и AI-агентов. Сайты от 20 000 ₽.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237b2ff7'/%3E%3Cstop offset='1' stop-color='%23f107a3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M16 18h32v8H36v22h-8V26H16z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#0b0b0d;
+    --bg-2:#131317;
+    --light:#f4f4f2;
+    --ink:#0b0b0d;
+    --muted:#8a8a93;
+    --line:rgba(255,255,255,.08);
+    --line-dark:rgba(0,0,0,.08);
+    --grad:linear-gradient(90deg,#6a1bff 0%,#b00ed8 50%,#ff2d8a 100%);
+    --title:linear-gradient(180deg,#e9edf2 0%,#9aa6b2 100%);
+    --r:28px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{background:var(--bg);color:var(--light);font-family:Manrope,system-ui,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1240px,100% - 48px);margin-inline:auto}
+  .display{font-family:Unbounded,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.9}
+
+  /* ---------- NAV ---------- */
+  .nav{position:fixed;inset:0 0 auto;z-index:50;padding:22px 0;transition:background .3s,padding .3s}
+  .nav::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;background:rgba(11,11,13,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:opacity .3s}
+  .nav.scrolled{padding:14px 0}
+  .nav.scrolled::before{opacity:1}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:Unbounded;font-weight:900;font-size:20px;letter-spacing:.04em}
+  .logo-mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center}
+  .logo-mark svg{width:18px;height:18px}
+  .nav ul{display:flex;gap:44px;list-style:none;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+  .nav ul a{opacity:.85;transition:opacity .2s}
+  .nav ul a:hover{opacity:1}
+  .burger{display:none;background:none;border:0;color:#fff;cursor:pointer;width:40px;height:40px}
+  .burger span{display:block;height:2px;background:#fff;margin:7px 6px;border-radius:2px;transition:.3s}
+
+  /* ---------- BUTTON ---------- */
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:18px 38px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--grad);border:0;cursor:pointer;isolation:isolate;transition:transform .25s}
+  .btn::before{content:"";position:absolute;inset:-2px;border-radius:inherit;background:linear-gradient(90deg,#fff6,#fff0 40%,#fff6);z-index:-1;padding:2px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+  .btn::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--grad);filter:blur(22px);opacity:.45;z-index:-2;transition:opacity .3s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:hover::after{opacity:.8}
+  .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.25)}
+  .btn-ghost::after,.btn-ghost::before{display:none}
+  .btn-ghost:hover{border-color:#fff}
+  .btn-dark{background:var(--ink)}
+  .btn-dark::after,.btn-dark::before{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:110px 0 40px;overflow:hidden}
+  .hero::before{content:"";position:absolute;width:900px;height:900px;left:50%;top:55%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(123,47,247,.28) 0%,rgba(241,7,163,.12) 35%,transparent 65%);pointer-events:none}
+  .hero-title{position:absolute;top:96px;left:0;right:0;text-align:center;font-size:clamp(40px,8.3vw,150px);background:var(--title);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;z-index:1}
+  .avatar{position:relative;z-index:2;align-self:center;width:min(560px,78vw);aspect-ratio:1;margin-top:clamp(0px,3vw,50px);transition:transform .2s ease-out;will-change:transform}
+  .avatar img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 50px rgba(0,0,0,.55));-webkit-mask-image:linear-gradient(180deg,#000 78%,transparent 97%);mask-image:linear-gradient(180deg,#000 78%,transparent 97%);animation:float 6s ease-in-out infinite}
+  /* placeholder until 3D-модель готова */
+  .avatar-ph{position:absolute;inset:6%;border-radius:50%;background:
+      radial-gradient(circle at 32% 28%,rgba(255,255,255,.55),transparent 22%),
+      radial-gradient(circle at 70% 75%,#ff2d8a 0%,transparent 45%),
+      radial-gradient(circle at 30% 70%,#6a1bff 0%,transparent 55%),
+      linear-gradient(135deg,#2a1260,#8a0f86);
+    box-shadow:inset -30px -40px 80px rgba(0,0,0,.55),inset 20px 20px 60px rgba(255,255,255,.12),0 60px 120px rgba(123,47,247,.35);
+    display:grid;place-items:center;animation:float 6s ease-in-out infinite}
+  .avatar-ph span{font-family:Unbounded;font-weight:900;font-size:clamp(90px,18vw,220px);color:rgba(255,255,255,.92);text-shadow:0 20px 50px rgba(0,0,0,.4);line-height:1}
+  .avatar-ph small{position:absolute;bottom:14%;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  @keyframes float{50%{transform:translateY(-16px)}}
+  .hero-bottom{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:-40px}
+  .hero-bottom p{max-width:330px;font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;line-height:1.5}
+  .status{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#b8f5c8;margin-bottom:14px}
+  .status i{width:8px;height:8px;border-radius:50%;background:#3ee07a;box-shadow:0 0 0 0 #3ee07a;animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{background:var(--grad);padding:18px 0;overflow:hidden;transform:rotate(-1.5deg);margin:40px -20px;position:relative;z-index:4}
+  .marquee-track{display:flex;gap:48px;width:max-content;animation:run 30s linear infinite}
+  .marquee span{font-family:Unbounded;font-weight:900;font-size:clamp(20px,3vw,34px);text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:48px}
+  .marquee span::after{content:"✦";font-size:.8em}
+  @keyframes run{to{transform:translateX(-50%)}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:120px 0}
+  .eyebrow{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+  .h2{font-size:clamp(40px,7vw,96px)}
+  .h2 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:70px;flex-wrap:wrap}
+  .sec-head p{max-width:420px;color:var(--muted)}
+  .light{background:var(--light);color:var(--ink);border-radius:var(--r) var(--r) 0 0}
+  .light .eyebrow,.light .sec-head p{color:#6b6b73}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:start}
+  .about-text{font-size:clamp(22px,2.6vw,34px);line-height:1.35;font-weight:600;letter-spacing:-.01em}
+  .about-text b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stat{background:var(--bg-2);border:1px solid var(--line);border-radius:22px;padding:28px}
+  .stat strong{display:block;font-family:Unbounded;font-weight:900;font-size:42px;line-height:1;margin-bottom:10px}
+  .stat span{color:var(--muted);font-size:14px}
+  .stack{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+  .stack li{list-style:none;padding:9px 18px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:600;color:#cfcfd6}
+
+  /* ---------- SERVICES (as reference) ---------- */
+  .svc{display:grid;grid-template-columns:230px 1fr auto;gap:40px;align-items:center;padding:44px 0;border-top:1px solid var(--line-dark);transition:padding .3s}
+  .svc:last-child{border-bottom:1px solid var(--line-dark)}
+  .svc-num{font-family:Unbounded;font-weight:900;font-size:clamp(70px,9vw,120px);line-height:.8;letter-spacing:-.04em;transition:color .3s}
+  .svc h3{font-family:Unbounded;font-weight:700;font-size:clamp(20px,2vw,26px);text-transform:uppercase;margin-bottom:12px}
+  .svc p{color:#5d5d66;max-width:620px}
+  .svc-tag{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;border-radius:999px;border:1.5px solid var(--ink);white-space:nowrap}
+  .svc:hover .svc-num{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .svc:hover{padding-left:12px}
+
+  /* ---------- PRICING ---------- */
+  .pricing{background:var(--light);color:var(--ink);padding-top:40px}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .plan{position:relative;background:#fff;border-radius:var(--r);padding:38px 34px;display:flex;flex-direction:column;border:1px solid var(--line-dark);transition:transform .3s,box-shadow .3s}
+  .plan:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.08)}
+  .plan-name{font-family:Unbounded;font-weight:700;font-size:18px;text-transform:uppercase;margin-bottom:6px}
+  .plan-desc{color:#6b6b73;font-size:15px;min-height:48px}
+  .price{font-family:Unbounded;font-weight:900;font-size:clamp(40px,4vw,54px);letter-spacing:-.03em;margin:26px 0 4px;line-height:1}
+  .price small{font-size:.45em;font-weight:700;letter-spacing:0}
+  .term{font-size:14px;color:#6b6b73;margin-bottom:26px}
+  .plan ul{list-style:none;display:grid;gap:12px;margin-bottom:34px;flex:1}
+  .plan li{display:flex;gap:12px;font-size:15px;font-weight:500}
+  .plan li::before{content:"";flex:0 0 20px;height:20px;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100%;margin-top:2px}
+  .plan .btn{width:100%}
+  .plan.hot{background:var(--ink);color:#fff;border:0}
+  .plan.hot .plan-desc,.plan.hot .term{color:#9a9aa3}
+  .plan.hot li::before{background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' stroke='black' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")}
+  .badge{position:absolute;top:-14px;right:28px;background:var(--grad);color:#fff;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border-radius:999px}
+  .plan-ai{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:30px;background:var(--grad);color:#fff;border:0;flex-direction:row;flex-wrap:wrap}
+  .plan-ai .plan-desc{color:rgba(255,255,255,.85);min-height:0;max-width:640px}
+  .plan-ai .price{margin:0}
+  .note{margin-top:28px;color:#6b6b73;font-size:14px;text-align:center}
+
+  /* ---------- PROCESS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+  .step{padding:30px 26px;border-radius:22px;background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:Unbounded;font-weight:900;font-size:64px;line-height:1;display:block;margin-bottom:26px;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.3)}
+  .step h4{font-family:Unbounded;font-weight:700;font-size:17px;text-transform:uppercase;margin-bottom:10px}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* ---------- PROJECTS ---------- */
+  .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .project{position:relative;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:var(--bg-2);border:1px dashed rgba(255,255,255,.18);display:flex;flex-direction:column;justify-content:flex-end;padding:30px}
+  .project::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(123,47,247,.25),transparent 60%);opacity:.6;transition:opacity .4s}
+  .project:hover::before{opacity:1}
+  .project > *{position:relative}
+  .project .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .project h4{font-family:Unbounded;font-weight:700;font-size:24px;text-transform:uppercase}
+  .project .soon{position:absolute;top:28px;left:30px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
+
+  /* ---------- FAQ ---------- */
+  .faq{max-width:900px}
+  details{border-top:1px solid var(--line);padding:26px 0}
+  details:last-child{border-bottom:1px solid var(--line)}
+  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;font-family:Unbounded;font-weight:700;font-size:clamp(16px,1.6vw,20px);text-transform:uppercase}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:28px;line-height:.8;transition:transform .3s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--muted);margin-top:16px;max-width:720px}
+
+  /* ---------- CONTACT ---------- */
+  .contact{text-align:center;position:relative;overflow:hidden}
+  .contact::before{content:"";position:absolute;width:1000px;height:600px;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(176,14,216,.25),transparent 65%);pointer-events:none}
+  .contact .wrap{position:relative}
+  .contact .h2{font-size:clamp(44px,9vw,140px);background:var(--title);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:30px}
+  .contact p{color:var(--muted);max-width:520px;margin:0 auto 44px}
+  .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .about-grid{grid-template-columns:1fr}
+    .plans{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .svc{grid-template-columns:140px 1fr;gap:24px}
+    .svc-tag{grid-column:2;justify-self:start}
+  }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .wrap{width:calc(100% - 32px)}
+    .nav ul{position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:34px;font-size:22px;background:rgba(11,11,13,.97);transform:translateY(-100%);visibility:hidden;transition:transform .4s,visibility .4s}
+    .nav.open ul{transform:none;visibility:visible}
+    .burger{display:block;position:relative;z-index:2}
+    .nav.open .burger span:first-child{transform:translateY(4.5px) rotate(45deg)}
+    .nav.open .burger span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+    .hero-title{top:110px;white-space:normal;font-size:clamp(46px,15vw,80px);line-height:.95}
+    .avatar{margin-top:140px}
+    .hero-bottom{flex-direction:column;align-items:flex-start;margin-top:10px}
+    .btn{padding:16px 28px}
+    section{padding:80px 0}
+    .sec-head{margin-bottom:44px}
+    .svc{grid-template-columns:1fr;gap:14px;padding:34px 0}
+    .svc-tag{grid-column:auto}
+    .steps,.projects,.stats{grid-template-columns:1fr}
+    .plan-ai{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Tavus">
+      <span class="logo-mark"><svg viewBox="0 0 20 20"><path d="M2 3h16v4h-6v11H8V7H2z" fill="#fff"/></svg></span>
+      TAVUS
+    </a>
+    <ul id="menu">
+      <li><a href="#about">Обо мне</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#pricing">Цены</a></li>
+      <li><a href="#projects">Проекты</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <h1 class="hero-title display">Привет, я Артём</h1>
+
+  <div class="avatar" id="avatar">
+    <picture>
+      <source srcset="avatar.webp" type="image/webp">
+      <img src="avatar.png" alt="Артём — 3D-аватар" width="1000" height="1000">
+    </picture>
+  </div>
+
+  <div class="wrap hero-bottom">
+    <div>
+      <div class="status"><i></i>Открыт для новых проектов</div>
+      <p>Веб-разработчик, который делает быстрые сайты, умных Telegram-ботов и AI-агентов</p>
+    </div>
+    <a href="#contact" class="btn">Связаться</a>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Сайты</span><span>Telegram-боты</span><span>AI-агенты</span><span>Лендинги</span><span>Интеграции</span><span>Автоматизация</span>
+    <span>Сайты</span><span>Telegram-боты</span><span>AI-агенты</span><span>Лендинги</span><span>Интеграции</span><span>Автоматизация</span>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap">
+    <span class="eyebrow reveal">/ Обо мне</span>
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="about-text">Я Артём — веб-разработчик. Превращаю идеи в <b>работающие продукты</b>: от лендинга за неделю до сайта с личным кабинетом, Telegram-бота, который принимает заказы, и <b>AI-агента</b>, который отвечает клиентам вместо вас.</p>
+        <ul class="stack">
+          <li>HTML / CSS / JS</li><li>React</li><li>Node.js</li><li>Python</li><li>Telegram Bot API</li><li>OpenAI / Claude API</li><li>Адаптив</li><li>SEO-основа</li>
+        </ul>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><strong>от 7</strong><span>дней — срок запуска лендинга</span></div>
+        <div class="stat"><strong>100%</strong><span>адаптив под телефоны и планшеты</span></div>
+        <div class="stat"><strong>1 на 1</strong><span>общаетесь напрямую с разработчиком</span></div>
+        <div class="stat"><strong>14</strong><span>дней бесплатной поддержки после сдачи</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">/ Услуги</span>
+        <h2 class="h2 display reveal">Что я<br>делаю</h2>
+      </div>
+      <p class="reveal">Беру проект целиком: от идеи и дизайна до запуска на хостинге. Вам не нужно искать отдельно дизайнера, верстальщика и программиста.</p>
+    </div>
+
+    <div class="svc reveal">
+      <div class="svc-num">01</div>
+      <div>
+        <h3>Сайты и лендинги</h3>
+        <p>Продающие одностраничники, сайты-визитки и многостраничные сайты с уникальным дизайном, анимациями и адаптивом под любые экраны.</p>
+      </div>
+      <span class="svc-tag">от 20 000 ₽</span>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">02</div>
+      <div>
+        <h3>Telegram-боты</h3>
+        <p>Боты для записи, приёма заявок и оплат, рассылок, каталогов и магазинов. С админ-панелью и интеграцией с вашими сервисами.</p>
+      </div>
+      <span class="svc-tag">по задаче</span>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">03</div>
+      <div>
+        <h3>AI-агенты</h3>
+        <p>Умные ассистенты на базе нейросетей: отвечают клиентам 24/7, консультируют по вашей базе знаний, квалифицируют лиды и автоматизируют рутину.</p>
+      </div>
+      <span class="svc-tag">по запросу</span>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">04</div>
+      <div>
+        <h3>Поддержка и доработка</h3>
+        <p>Обновляю контент, добавляю новые разделы, чиню баги и ускоряю загрузку уже существующих сайтов.</p>
+      </div>
+      <span class="svc-tag">по задаче</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing" class="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">/ Цены</span>
+        <h2 class="h2 display reveal">Прозрачные<br>цены</h2>
+      </div>
+      <p class="reveal">Фиксированная стоимость без скрытых платежей. Работаю по предоплате 50% — вторую часть вы платите, когда всё готово и вам нравится.</p>
+    </div>
+
+    <div class="plans">
+      <div class="plan reveal">
+        <div class="plan-name">Старт</div>
+        <div class="plan-desc">Лендинг или сайт-визитка, чтобы быстро заявить о себе</div>
+        <div class="price">20 000 <small>₽</small></div>
+        <div class="term">срок: 7–10 дней</div>
+        <ul>
+          <li>До 5 блоков на одной странице</li>
+          <li>Адаптив под мобильные</li>
+          <li>Форма заявки в Telegram</li>
+          <li>Базовая SEO-настройка</li>
+          <li>Помощь с доменом и хостингом</li>
+        </ul>
+        <a href="#contact" class="btn btn-dark">Заказать</a>
+      </div>
+
+      <div class="plan hot reveal">
+        <span class="badge">Популярный</span>
+        <div class="plan-name">Бизнес</div>
+        <div class="plan-desc">Полноценный сайт для компании или эксперта</div>
+        <div class="price">30 000 <small>₽</small></div>
+        <div class="term">срок: 2–3 недели</div>
+        <ul>
+          <li>До 5 страниц</li>
+          <li>Уникальный дизайн и анимации</li>
+          <li>Каталог услуг / товаров</li>
+          <li>Интеграция с Telegram и CRM</li>
+          <li>Подключение аналитики</li>
+          <li>Инструкция по управлению</li>
+        </ul>
+        <a href="#contact" class="btn">Заказать</a>
+      </div>
+
+      <div class="plan reveal">
+        <div class="plan-name">Про</div>
+        <div class="plan-desc">Сложный сайт с логикой, базой данных и личным кабинетом</div>
+        <div class="price">35 000 <small>₽</small></div>
+        <div class="term">срок: от 3 недель</div>
+        <ul>
+          <li>Всё из тарифа «Бизнес»</li>
+          <li>Личный кабинет / авторизация</li>
+          <li>Админ-панель для контента</li>
+          <li>Онлайн-оплата</li>
+          <li>Интеграции по API</li>
+          <li>Приоритетная поддержка 30 дней</li>
+        </ul>
+        <a href="#contact" class="btn btn-dark">Заказать</a>
+      </div>
+
+      <div class="plan plan-ai reveal">
+        <div>
+          <div class="plan-name">Telegram-боты и AI-агенты</div>
+          <div class="plan-desc">Стоимость зависит от сценариев, интеграций и объёма базы знаний. Опишите задачу — посчитаю бесплатно в течение дня.</div>
+        </div>
+        <a href="#contact" class="btn btn-ghost">Обсудить задачу</a>
+      </div>
+    </div>
+    <p class="note reveal">Не нашли подходящий вариант? Напишите — соберу индивидуальное предложение.</p>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">/ Как я работаю</span>
+        <h2 class="h2 display reveal">4 шага<br>к <em>запуску</em></h2>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h4>Бриф</h4><p>Созваниваемся или переписываемся, разбираю задачу, цели и примеры, которые вам нравятся.</p></div>
+      <div class="step reveal"><h4>Прототип</h4><p>Показываю структуру и дизайн главного экрана. Вносим правки до того, как я начну писать код.</p></div>
+      <div class="step reveal"><h4>Разработка</h4><p>Собираю проект и регулярно показываю прогресс по ссылке — вы всегда видите, что происходит.</p></div>
+      <div class="step reveal"><h4>Запуск</h4><p>Публикую на ваш домен, проверяю на всех устройствах и передаю доступы с инструкцией.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">/ Портфолио</span>
+        <h2 class="h2 display reveal">Проекты</h2>
+      </div>
+      <p class="reveal">Здесь скоро появятся мои работы. А пока — можете стать первым клиентом со скидкой.</p>
+    </div>
+    <!-- Замени карточки на реальные проекты: добавь <img> внутрь .project и поменяй тексты -->
+    <div class="projects">
+      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">Сайт</span><h4>Проект 01</h4></a>
+      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">Telegram-бот</span><h4>Проект 02</h4></a>
+      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">AI-агент</span><h4>Проект 03</h4></a>
+      <a href="#contact" class="project reveal"><span class="soon">Скоро</span><span class="tag">Лендинг</span><h4>Проект 04</h4></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow reveal">/ Вопросы</span>
+    <h2 class="h2 display reveal" style="margin-bottom:50px">FAQ</h2>
+    <div class="faq">
+      <details class="reveal"><summary>Как проходит оплата?</summary><p>50% предоплата перед стартом, 50% — после того, как вы приняли готовую работу. Оплата переводом на карту.</p></details>
+      <details class="reveal"><summary>Что нужно от меня для старта?</summary><p>Описание бизнеса, тексты и фото (если есть), примеры сайтов, которые нравятся. Если материалов нет — помогу со структурой и текстами.</p></details>
+      <details class="reveal"><summary>Смогу ли я сам менять контент?</summary><p>Да. На тарифе «Про» будет админ-панель, на остальных — пошаговая инструкция. Или просто пишите мне — внесу правки.</p></details>
+      <details class="reveal"><summary>Домен и хостинг входят в стоимость?</summary><p>Оплачиваются отдельно (обычно 1–3 тыс. ₽ в год) и оформляются на вас. Я помогу всё выбрать и настроить.</p></details>
+      <details class="reveal"><summary>Сколько правок можно вносить?</summary><p>Две итерации правок на каждом этапе включены в стоимость. Мелкие правки в течение периода поддержки — бесплатно.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="eyebrow reveal">/ Контакты</span>
+    <h2 class="h2 display reveal">Давайте<br>работать</h2>
+    <p class="reveal">Опишите задачу в паре предложений — отвечу в течение нескольких часов и предложу решение с ценой и сроками.</p>
+    <div class="contact-links reveal">
+      <!-- Замени ссылки на свои -->
+      <a href="https://t.me/your_username" class="btn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <a href="mailto:hello@tavus.ru" class="btn btn-ghost">hello@tavus.ru</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Tavus · Артём</span>
+    <span>Веб-разработка · Telegram-боты · AI-агенты</span>
+  </div>
+</footer>
+
+<script>
+  // nav background on scroll
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
+
+  // mobile menu
+  document.getElementById('burger').onclick = () => nav.classList.toggle('open');
+  document.querySelectorAll('#menu a').forEach(a => a.onclick = () => nav.classList.remove('open'));
+
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // avatar follows cursor (like the reference)
+  const avatar = document.getElementById('avatar');
+  if (matchMedia('(pointer:fine)').matches) {
+    addEventListener('mousemove', e => {
+      const x = (e.clientX / innerWidth - .5), y = (e.clientY / innerHeight - .5);
+      avatar.style.transform = `perspective(900px) rotateY(${x*14}deg) rotateX(${-y*10}deg) translate(${x*20}px,${y*14}px)`;
+    });
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
