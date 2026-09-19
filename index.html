@@ -130,6 +130,7 @@
   .plan-name{font-family:Unbounded;font-weight:700;font-size:18px;text-transform:uppercase;margin-bottom:6px}
   .plan-desc{color:#6b6b73;font-size:15px;min-height:48px}
   .price{font-family:Unbounded;font-weight:900;font-size:clamp(40px,4vw,54px);letter-spacing:-.03em;margin:26px 0 4px;line-height:1}
+  .price .from{margin-right:.1em}
   .price small{font-size:.45em;font-weight:700;letter-spacing:0}
   .old-price{margin-top:26px;font-family:Unbounded;font-weight:700;font-size:18px;color:#9a9aa3;text-decoration:line-through;text-decoration-color:#ff2d8a;text-decoration-thickness:2px}
   .old-price + .price{margin-top:6px}
@@ -428,7 +429,7 @@
         <div class="plan-name">Старт</div>
         <div class="plan-desc">Лендинг или сайт-визитка, чтобы быстро заявить о себе</div>
         <div class="old-price">20 000 ₽</div>
-        <div class="price">10 000 <small>₽</small></div>
+        <div class="price"><small class="from">от</small> 10 000 <small>₽</small></div>
         <div class="term">срок: 7–10 дней</div>
         <ul>
           <li>До 5 блоков на одной странице</li>
@@ -445,7 +446,7 @@
         <div class="plan-name">Бизнес</div>
         <div class="plan-desc">Полноценный сайт для компании или эксперта</div>
         <div class="old-price">30 000 ₽</div>
-        <div class="price">20 000 <small>₽</small></div>
+        <div class="price"><small class="from">от</small> 20 000 <small>₽</small></div>
         <div class="term">срок: 2–3 недели</div>
         <ul>
           <li>До 5 страниц</li>
@@ -462,7 +463,7 @@
         <div class="plan-name">Про</div>
         <div class="plan-desc">Сложный сайт с логикой, базой данных и личным кабинетом</div>
         <div class="old-price">40 000 ₽</div>
-        <div class="price">30 000 <small>₽</small></div>
+        <div class="price"><small class="from">от</small> 30 000 <small>₽</small></div>
         <div class="term">срок: от 3 недель</div>
         <ul>
           <li>Всё из тарифа «Бизнес»</li>
@@ -592,9 +593,9 @@
         <div class="field full">
           <label for="f-service">Что нужно сделать</label>
           <select id="f-service" name="service">
-            <option>Сайт «Старт» — 10 000 ₽</option>
-            <option>Сайт «Бизнес» — 20 000 ₽</option>
-            <option>Сайт «Про» — 30 000 ₽</option>
+            <option>Сайт «Старт» — от 10 000 ₽</option>
+            <option>Сайт «Бизнес» — от 20 000 ₽</option>
+            <option>Сайт «Про» — от 30 000 ₽</option>
             <option>Telegram-бот</option>
             <option>AI-агент</option>
             <option>Доработка существующего сайта</option>
