@@ -129,6 +129,13 @@
   .plan-desc{color:#6b6b73;font-size:15px;min-height:48px}
   .price{font-family:Unbounded;font-weight:900;font-size:clamp(40px,4vw,54px);letter-spacing:-.03em;margin:26px 0 4px;line-height:1}
   .price small{font-size:.45em;font-weight:700;letter-spacing:0}
+  .old-price{margin-top:26px;font-family:Unbounded;font-weight:700;font-size:18px;color:#9a9aa3;text-decoration:line-through;text-decoration-color:#ff2d8a;text-decoration-thickness:2px}
+  .old-price + .price{margin-top:6px}
+  .promo{display:flex;align-items:center;gap:20px;background:var(--ink);color:#fff;border-radius:22px;padding:20px 26px;margin-bottom:34px}
+  .promo-tag{flex:0 0 auto;font-family:Unbounded;font-weight:900;font-size:clamp(18px,2vw,24px);padding:12px 18px;border-radius:14px;background:var(--grad);white-space:nowrap}
+  .promo strong{display:block;font-family:Unbounded;font-weight:700;font-size:17px;text-transform:uppercase;margin-bottom:4px}
+  .promo span:not(.promo-tag){color:#b5b5bd;font-size:15px}
+  @media (max-width:560px){.promo{flex-direction:column;align-items:flex-start}}
   .term{font-size:14px;color:#6b6b73;margin-bottom:26px}
   .plan ul{list-style:none;display:grid;gap:12px;margin-bottom:34px;flex:1}
   .plan li{display:flex;gap:12px;font-size:15px;font-weight:500}
@@ -385,10 +392,16 @@
       <p class="reveal">Фиксированная стоимость без скрытых платежей. Работаю по предоплате 50% — вторую часть вы платите, когда всё готово и вам нравится.</p>
     </div>
 
+    <div class="promo reveal">
+      <span class="promo-tag">−10 000 ₽</span>
+      <div><strong>Скидка первым клиентам</strong><span>Пока собираю портфолио, делаю сайты дешевле обычной цены. Когда наберу проекты, цены вернутся к обычным.</span></div>
+    </div>
+
     <div class="plans">
       <div class="plan reveal">
         <div class="plan-name">Старт</div>
         <div class="plan-desc">Лендинг или сайт-визитка, чтобы быстро заявить о себе</div>
+        <div class="old-price">20 000 ₽</div>
         <div class="price">10 000 <small>₽</small></div>
         <div class="term">срок: 7–10 дней</div>
         <ul>
@@ -405,6 +418,7 @@
         <span class="badge">Популярный</span>
         <div class="plan-name">Бизнес</div>
         <div class="plan-desc">Полноценный сайт для компании или эксперта</div>
+        <div class="old-price">30 000 ₽</div>
         <div class="price">20 000 <small>₽</small></div>
         <div class="term">срок: 2–3 недели</div>
         <ul>
@@ -421,6 +435,7 @@
       <div class="plan reveal">
         <div class="plan-name">Про</div>
         <div class="plan-desc">Сложный сайт с логикой, базой данных и личным кабинетом</div>
+        <div class="old-price">35 000 ₽</div>
         <div class="price">25 000 <small>₽</small></div>
         <div class="term">срок: от 3 недель</div>
         <ul>
