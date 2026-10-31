@@ -227,8 +227,15 @@
   @media (max-width:1000px){.ya-form iframe{min-height:900px}}
   @media (max-width:560px){.ya-form iframe{min-height:1000px}}
   .socials{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);margin-top:clamp(20px,2.6vw,32px)}
+  .socials-4{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:1100px){.socials-4{grid-template-columns:1fr 1fr}}
   .social{display:flex;align-items:center;gap:16px;padding:clamp(18px,2.2vw,26px);background:var(--paper);border:3px solid var(--ink);box-shadow:6px 6px 0 rgba(17,17,17,.18);transition:background .15s,transform .15s}
   .social:hover{background:var(--accent);transform:translate(-3px,-3px)}
+  .social-bot{background:var(--accent)}
+  .social-bot .social-txt small{color:var(--ink)}
+  .social-bot:hover{background:var(--ink);color:var(--bg)}
+  .social-bot:hover .social-ico{border-color:var(--bg)}
+  .social-bot:hover .social-txt small{color:#d6d6d6}
   .social-ico{width:44px;height:44px;border:2px solid var(--ink);display:grid;place-items:center;flex:0 0 44px}
   .social-ico svg{width:20px;height:20px}
   .social-txt b{display:block;font-family:Rubik,Inter,sans-serif;font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
@@ -669,8 +676,9 @@
       </div>
     </div>
 
-    <div class="socials">
-      <a href="https://t.me/klozifi" class="social reveal" target="_blank" rel="noopener"><span class="social-ico"><svg viewBox="0 0 24 24"><path d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.4l-.4 4-1.5-4.8 11-6.9-9.1 7.7Z" fill="currentColor"/></svg></span><span class="social-txt"><b>Telegram</b><small>@klozifi</small></span></a>
+    <div class="socials socials-4">
+      <a href="https://t.me/klozifi_bot" class="social social-bot reveal" target="_blank" rel="noopener"><span class="social-ico"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="3" r="1.6" fill="currentColor"/><circle cx="9" cy="13" r="1.4" fill="currentColor"/><circle cx="15" cy="13" r="1.4" fill="currentColor"/><path d="M9.5 16.3h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="social-txt"><b>Спросить бота</b><small>ответит 24/7</small></span></a>
+      <a href="https://t.me/klozifi" class="social reveal" data-d="1" target="_blank" rel="noopener"><span class="social-ico"><svg viewBox="0 0 24 24"><path d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.4l-.4 4-1.5-4.8 11-6.9-9.1 7.7Z" fill="currentColor"/></svg></span><span class="social-txt"><b>Telegram</b><small>@klozifi</small></span></a>
       <a href="tel:+79830221484" class="social reveal" data-d="1"><span class="social-ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1Z" fill="currentColor"/></svg></span><span class="social-txt"><b>Позвонить</b><small>+7 983 022-14-84</small></span></a>
       <a href="mailto:klozifi@mail.ru" class="social reveal" data-d="2"><span class="social-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="social-txt"><b>Почта</b><small>klozifi@mail.ru</small></span></a>
     </div>
@@ -777,7 +785,7 @@
 
   // ---------- Метрика: цели ----------
   const goal = name => { if (window.ym) ym(METRIKA_ID, 'reachGoal', name); };
-  const socialGoals = { 't.me': 'click_telegram', 'tel:': 'click_phone', 'mailto:': 'click_email' };
+  const socialGoals = { 'klozifi_bot': 'click_bot', 't.me/klozifi': 'click_telegram', 'tel:': 'click_phone', 'mailto:': 'click_email' };
   document.querySelectorAll('.social').forEach(a => a.addEventListener('click', () => {
     const key = Object.keys(socialGoals).find(k => a.href.includes(k));
     if (key) goal(socialGoals[key]);
