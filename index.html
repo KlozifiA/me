@@ -36,7 +36,7 @@
     --rule:4px solid var(--ink);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;overflow-x:clip}
+  html{scroll-behavior:smooth;overflow-x:clip;background:var(--bg);overscroll-behavior-y:none}
   body{position:relative;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   /* зерно поверх всего — лёгкая фактура бумаги */
   body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.26;mix-blend-mode:multiply;
@@ -285,8 +285,8 @@
   }
   @media (max-width:760px){
     body{font-size:16px}
-    .nav ul{position:fixed;inset:66px 0 auto;flex-direction:column;background:var(--bg);border-bottom:var(--rule);transform:translateY(-130%);transition:transform .3s}
-    .nav.open ul{transform:none}
+    .nav ul{position:fixed;inset:66px 0 auto;flex-direction:column;background:var(--bg);border-bottom:var(--rule);opacity:0;transform:translateY(-10px);visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s,visibility .2s}
+    .nav.open ul{opacity:1;transform:none;visibility:visible;pointer-events:auto}
     .nav ul a{padding:18px var(--pad);font-size:14px;border-top:2px solid var(--ink)}
     .burger{display:block}
     .svc{grid-template-columns:auto 1fr;gap:14px}
@@ -321,7 +321,7 @@
   <div class="hero-grid">
     <div>
       <div class="hero-meta">
-        <span><b>Шейко Артём</b></span><span>Веб-разработчик</span><span>Ставрополь / удалённо</span><span>2026</span>
+        <span><b>Шейко Артём</b></span><span>Веб-разработчик</span><span>Новосибирск / удалённо</span><span>2026</span>
       </div>
       <h1 class="disp">Сайты<br><em>Боты</em><br><span class="out">AI-агенты</span></h1>
       <p class="hero-lead">Делаю под ключ: дизайн, код и запуск на вашем домене. Без студий и менеджеров — вы общаетесь напрямую со мной.</p>
