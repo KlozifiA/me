@@ -23,262 +23,274 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon-120.png" type="image/png" sizes="120x120">
-<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="icon" href="logo-new.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#f2f0ed;
+    --paper:#fbfaf8;
     --ink:#111111;
     --muted:#6b6b6b;
     --accent:#ff4d2e;
-    --line:#111111;
-    --hair:rgba(17,17,17,.14);
-    --pad:clamp(16px,4vw,56px);
+    --pad:clamp(16px,4vw,64px);
+    --rule:4px solid var(--ink);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;overflow-x:clip}
-  body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{position:relative;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  /* зерно поверх всего — лёгкая фактура бумаги */
+  body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.26;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E")}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
   ::selection{background:var(--accent);color:#fff}
-  .wrap{width:100%;padding-inline:var(--pad)}
-  .disp{font-family:Archivo,Inter,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.88}
+  .disp{font-family:Archivo,Inter,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.035em;line-height:.86}
   .mono{font-family:"Space Mono",ui-monospace,monospace}
 
   /* ---------- NAV ---------- */
-  .nav{position:fixed;inset:0 0 auto;z-index:60;background:var(--bg);border-bottom:2px solid var(--line)}
-  .nav .wrap{display:flex;align-items:stretch;justify-content:space-between;gap:20px;padding-inline:0}
-  .logo{display:flex;align-items:center;gap:12px;padding:14px var(--pad);border-right:2px solid var(--line);font-family:Archivo;font-weight:900;font-size:19px;letter-spacing:.06em}
+  .nav{position:fixed;inset:0 0 auto;z-index:70;background:var(--bg);border-bottom:var(--rule);display:flex;align-items:stretch;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:12px;padding:14px var(--pad);font-family:Archivo;font-weight:900;font-size:19px;letter-spacing:.06em}
   .logo img{width:30px;height:30px}
   .nav ul{display:flex;list-style:none;margin-left:auto}
-  .nav ul a{display:flex;align-items:center;height:100%;padding:0 22px;border-left:2px solid var(--line);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;transition:background .15s,color .15s}
+  .nav ul a{display:flex;align-items:center;height:100%;padding:0 20px;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:background .15s,color .15s}
   .nav ul a:hover{background:var(--ink);color:var(--bg)}
-  .nav ul a.hot{background:var(--accent)}
+  .nav ul a.hot{background:var(--accent);font-weight:700}
   .nav ul a.hot:hover{background:var(--ink);color:var(--bg)}
-  .burger{display:none;border:0;border-left:2px solid var(--line);background:none;cursor:pointer;width:62px;color:inherit}
-  .burger span{display:block;height:2px;background:var(--ink);margin:6px 16px}
+  .burger{display:none;border:0;background:none;cursor:pointer;width:62px;color:inherit}
+  .burger span{display:block;height:3px;background:var(--ink);margin:6px 16px}
 
   /* ---------- BUTTON ---------- */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:18px 34px;border:2px solid var(--line);background:var(--accent);color:var(--ink);font-family:Inter;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:transform .12s,background .15s,color .15s}
-  .btn:hover{background:var(--ink);color:var(--bg);transform:translate(-2px,-2px)}
-  .btn-ghost{background:transparent}
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:18px 34px;border:3px solid var(--ink);background:var(--accent);color:var(--ink);font-family:Inter;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:6px 6px 0 var(--ink);transition:transform .12s,box-shadow .12s,background .15s,color .15s}
+  .btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
   .btn-ink{background:var(--ink);color:var(--bg)}
   .btn-ink:hover{background:var(--accent);color:var(--ink)}
+  .btn-paper{background:var(--paper)}
+
+  /* ---------- SECTION CHROME ---------- */
+  section{position:relative;border-bottom:var(--rule);padding:clamp(48px,7vw,110px) 0}
+  .wrap{padding-inline:var(--pad)}
+  .sec-head{position:relative;display:grid;grid-template-columns:1fr minmax(260px,420px);gap:clamp(20px,4vw,60px);align-items:end;margin-bottom:clamp(32px,5vw,64px)}
+  .sec-head p{color:var(--muted)}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  .eyebrow::before{content:"";width:28px;height:3px;background:var(--accent)}
+  h2{font-size:clamp(36px,6.4vw,96px)}
+  h2 em{font-style:normal;color:var(--accent)}
+  h2 .out{-webkit-text-stroke:2px var(--ink);color:transparent}
+  /* огромная цифра-подложка */
+  .ghost-num{position:absolute;right:0;top:-.22em;font-family:Archivo;font-weight:900;font-size:clamp(120px,22vw,320px);line-height:.8;color:rgba(17,17,17,.055);pointer-events:none;user-select:none;z-index:0}
+  .sec-head > *{position:relative;z-index:1}
 
   /* ---------- HERO ---------- */
-  .hero{position:relative;min-height:100svh;padding-top:66px;display:flex;flex-direction:column;justify-content:space-between;
-    background-image:repeating-linear-gradient(90deg,var(--hair) 0 1px,transparent 1px calc(100% / 6));background-size:100% 100%}
-  .hero-top{display:grid;grid-template-columns:1.35fr .65fr;gap:0;border-bottom:2px solid var(--line);flex:1}
-  .hero-left{padding:clamp(26px,4vw,54px) var(--pad);display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2.4vw,30px)}
-  .hero-meta{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .hero-meta b{color:var(--ink);font-weight:700}
-  h1{font-size:clamp(46px,8.6vw,132px)}
+  .hero{min-height:100svh;padding:calc(66px + clamp(24px,4vw,56px)) 0 0;border-bottom:var(--rule);position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,3vw,48px);align-items:center;padding-inline:var(--pad)}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:8px 16px;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:clamp(16px,2vw,26px)}
+  .hero-meta b{color:var(--ink)}
+  h1{font-size:clamp(48px,9vw,140px);margin-bottom:clamp(18px,2.4vw,30px)}
   h1 em{font-style:normal;color:var(--accent)}
-  h1 .thin{-webkit-text-stroke:2px var(--ink);color:transparent}
-  .hero-lead{max-width:540px;font-size:clamp(16px,1.3vw,20px);color:#2b2b2b}
-  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-  .status{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-  .status i{width:10px;height:10px;background:var(--accent)}
-  .hero-art{border-left:2px solid var(--line);position:relative;overflow:hidden;min-height:320px;background:var(--bg)}
-  .hero-art svg{position:absolute;inset:0;width:100%;height:100%}
-  .art-grid line{stroke:var(--hair);stroke-width:1}
-  .art-shape{fill:none;stroke:var(--ink);stroke-width:2}
-  .art-accent{fill:var(--accent)}
-  .art-rot{transform-origin:center;animation:spin 26s linear infinite}
-  .art-rot-2{transform-origin:center;animation:spin 18s linear infinite reverse}
+  h1 .out{-webkit-text-stroke:clamp(1.5px,.22vw,3px) var(--ink);color:transparent}
+  .hero-lead{max-width:520px;font-size:clamp(16px,1.25vw,19px);color:#2b2b2b;margin-bottom:clamp(22px,3vw,34px)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+  .hero-art{position:relative;aspect-ratio:1;min-height:280px}
+  .hero-art svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .net-line{stroke:var(--ink);stroke-width:1.5;opacity:.5}
+  .net-ring{fill:none;stroke:var(--ink);stroke-width:2}
+  .net-ring.dash{stroke-dasharray:10 12;animation:dashmove 9s linear infinite}
+  @keyframes dashmove{to{stroke-dashoffset:-220}}
+  .net-node{fill:var(--ink)}
+  .net-node.acc{fill:var(--accent)}
+  .n-float{animation:float 7s ease-in-out infinite}
+  .n-float.b{animation-duration:9s;animation-delay:-2s}
+  .n-float.c{animation-duration:11s;animation-delay:-4s}
+  @keyframes float{50%{transform:translateY(-14px)}}
+  .spin-slow{transform-origin:200px 200px;animation:spin 40s linear infinite}
+  .spin-rev{transform-origin:200px 200px;animation:spin 28s linear infinite reverse}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .art-pulse{animation:pulse 3.2s ease-in-out infinite}
-  @keyframes pulse{50%{opacity:.25}}
-  .hero-bottom{display:grid;grid-template-columns:repeat(4,1fr)}
-  .hero-bottom div{padding:18px var(--pad);border-right:2px solid var(--line);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
-  .hero-bottom div:last-child{border-right:0}
-  .hero-bottom b{display:block;font-family:Archivo;font-weight:800;font-size:clamp(20px,2vw,28px);letter-spacing:-.01em;text-transform:none;margin-bottom:4px}
-
-  /* ---------- MARQUEE ---------- */
-  .marquee{background:var(--ink);color:var(--bg);padding:14px 0;overflow:hidden;border-bottom:2px solid var(--line)}
-  .marquee-track{display:flex;gap:40px;width:max-content;animation:run 34s linear infinite}
-  .marquee span{font-family:"Space Mono",monospace;font-size:15px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;display:flex;gap:40px;align-items:center}
-  .marquee span::after{content:"/"; color:var(--accent)}
+  /* круглая печать */
+  .stamp{position:absolute;right:clamp(-10px,1vw,10px);bottom:clamp(-6px,2vw,24px);width:clamp(96px,11vw,150px);height:clamp(96px,11vw,150px);z-index:2}
+  .stamp svg{width:100%;height:100%;animation:spin 18s linear infinite}
+  .stamp-mid{position:absolute;inset:0;display:grid;place-items:center}
+  .stamp-mid i{display:block;width:16px;height:16px;background:var(--accent)}
+  .hero-ticker{margin-top:clamp(28px,4vw,56px);border-top:var(--rule);background:var(--ink);color:var(--bg);overflow:hidden;padding:14px 0}
+  .ticker-track{display:flex;gap:40px;width:max-content;animation:run 32s linear infinite}
+  .ticker-track span{font-family:"Space Mono",monospace;font-size:14px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;display:flex;gap:40px;align-items:center}
+  .ticker-track span::after{content:"✳";color:var(--accent)}
   @keyframes run{to{transform:translateX(-50%)}}
 
-  /* ---------- SECTIONS ---------- */
-  section{border-bottom:2px solid var(--line)}
-  .sec-head{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,4vw,60px);padding:clamp(40px,6vw,86px) var(--pad) clamp(26px,3vw,40px)}
-  .sec-head p{color:var(--muted);max-width:520px;align-self:end}
-  .eyebrow{display:block;font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
-  h2{font-size:clamp(34px,5.6vw,86px)}
-  h2 em{font-style:normal;color:var(--accent)}
+  /* ---------- FACTS ---------- */
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px);padding-inline:var(--pad);margin-top:clamp(30px,4vw,54px)}
+  .fact{background:var(--paper);border:3px solid var(--ink);box-shadow:6px 6px 0 rgba(17,17,17,.16);padding:clamp(16px,2vw,26px)}
+  .fact b{display:block;font-family:Archivo;font-weight:900;font-size:clamp(26px,3vw,44px);line-height:1;letter-spacing:-.03em;margin-bottom:8px}
+  .fact span{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
   /* ---------- ABOUT ---------- */
-  .about{display:grid;grid-template-columns:1.1fr 1fr;border-top:2px solid var(--line)}
-  .about-text{padding:clamp(28px,4vw,60px) var(--pad);font-size:clamp(20px,2.2vw,30px);font-weight:500;line-height:1.3;border-right:2px solid var(--line)}
+  .about{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(26px,4vw,64px);align-items:start}
+  .about-text{font-size:clamp(20px,2.1vw,30px);font-weight:500;line-height:1.3}
   .about-text b{color:var(--accent);font-weight:700}
-  .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;list-style:none}
-  .stack li{padding:7px 14px;border:1.5px solid var(--line);font-family:"Space Mono",monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
-  .stats{display:grid;grid-template-columns:1fr 1fr}
-  .stat{padding:clamp(20px,2.6vw,36px) clamp(18px,2.4vw,32px);border-bottom:2px solid var(--line);border-right:2px solid var(--line)}
-  .stat:nth-child(2n){border-right:0}
-  .stat:nth-child(n+3){border-bottom:0}
-  .stat strong{display:block;font-family:Archivo;font-weight:900;font-size:clamp(34px,3.6vw,54px);line-height:1;letter-spacing:-.03em;margin-bottom:10px}
-  .stat span{color:var(--muted);font-size:14px}
+  .stack{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;list-style:none}
+  .stack li{padding:9px 16px;background:var(--paper);border:2px solid var(--ink);font-family:"Space Mono",monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;transform:rotate(-1deg)}
+  .stack li:nth-child(2n){transform:rotate(1.2deg)}
+  .about-side{background:var(--ink);color:var(--bg);padding:clamp(24px,3vw,38px);display:grid;gap:22px;box-shadow:10px 10px 0 var(--accent)}
+  .about-side h3{font-family:Archivo;font-weight:800;font-size:22px;text-transform:uppercase}
+  .about-side ul{list-style:none;display:grid;gap:14px}
+  .about-side li{display:flex;gap:12px;font-size:15px;color:#d8d8d8}
+  .about-side li::before{content:"→";color:var(--accent);font-weight:700}
 
   /* ---------- SERVICES ---------- */
-  .svc{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(18px,3vw,44px);align-items:center;padding:clamp(22px,2.6vw,34px) var(--pad);border-top:2px solid var(--line);transition:background .15s,color .15s}
-  .svc:hover{background:var(--ink);color:var(--bg)}
-  .svc:hover .svc-tag{border-color:var(--bg);color:var(--bg)}
-  .svc:hover .svc-num{color:var(--accent)}
-  .svc-num{font-family:Archivo;font-weight:900;font-size:clamp(34px,4.6vw,70px);line-height:.8;letter-spacing:-.04em;min-width:1.8em}
-  .svc h3{font-family:Archivo;font-weight:800;font-size:clamp(20px,2.2vw,30px);text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px}
-  .svc p{color:inherit;opacity:.72;max-width:640px;font-size:15px}
-  .svc-tag{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:10px 16px;border:2px solid var(--line);white-space:nowrap}
+  .svc-list{display:grid;gap:clamp(14px,1.6vw,20px)}
+  .svc{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,3vw,40px);align-items:center;padding:clamp(20px,2.4vw,32px) clamp(18px,2.4vw,34px);background:var(--paper);border:3px solid var(--ink);overflow:hidden;transition:background .18s,color .18s,transform .18s}
+  .svc:hover{background:var(--ink);color:var(--bg);transform:translateX(6px)}
+  .svc:hover .svc-tag{border-color:var(--bg);background:transparent;color:var(--bg)}
+  .svc:hover .svc-num{color:var(--accent);-webkit-text-stroke-color:var(--accent)}
+  .svc-num{font-family:Archivo;font-weight:900;font-size:clamp(34px,4.4vw,64px);line-height:.8;letter-spacing:-.04em;-webkit-text-stroke:2px var(--ink);color:transparent;min-width:1.7em}
+  .svc h3{font-family:Archivo;font-weight:800;font-size:clamp(19px,2.1vw,28px);text-transform:uppercase;margin-bottom:8px}
+  .svc p{opacity:.72;max-width:640px;font-size:15px}
+  .svc-tag{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:10px 16px;border:2px solid var(--ink);background:var(--accent);white-space:nowrap}
 
   /* ---------- PRICING ---------- */
-  .promo{display:flex;flex-wrap:wrap;align-items:center;gap:18px;background:var(--accent);border-top:2px solid var(--line);padding:20px var(--pad)}
-  .promo b{font-family:Archivo;font-weight:900;font-size:clamp(24px,2.6vw,36px);letter-spacing:-.02em}
-  .promo span{font-weight:500;font-size:15px}
-  .plans{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--line)}
-  .plan{display:flex;flex-direction:column;padding:clamp(24px,2.8vw,38px) clamp(20px,2.4vw,32px);border-right:2px solid var(--line)}
-  .plan:last-of-type{border-right:0}
-  .plan.hot{background:var(--ink);color:var(--bg)}
-  .plan-name{font-family:Archivo;font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.02em}
-  .badge{display:inline-block;align-self:flex-start;margin-bottom:12px;background:var(--accent);color:var(--ink);font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px}
+  .promo{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:var(--accent);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:20px clamp(18px,2.4vw,30px);margin-bottom:clamp(26px,3vw,40px);transform:rotate(-.8deg)}
+  .promo b{font-family:Archivo;font-weight:900;font-size:clamp(24px,2.6vw,38px);letter-spacing:-.02em}
+  .promo span{font-weight:600;font-size:15px}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px);align-items:start}
+  .plan{position:relative;display:flex;flex-direction:column;padding:clamp(22px,2.6vw,34px) clamp(18px,2.2vw,28px);background:var(--paper);border:3px solid var(--ink);box-shadow:8px 8px 0 rgba(17,17,17,.18)}
+  .plan.hot{background:var(--ink);color:var(--bg);box-shadow:10px 10px 0 var(--accent);transform:translateY(-10px)}
+  .plan-name{font-family:Archivo;font-weight:800;font-size:22px;text-transform:uppercase}
+  .badge{position:absolute;top:-16px;right:-10px;background:var(--accent);color:var(--ink);border:3px solid var(--ink);font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;transform:rotate(4deg)}
   .plan-desc{color:var(--muted);font-size:15px;margin-top:10px;min-height:46px}
   .plan.hot .plan-desc,.plan.hot .term{color:#b9b9b9}
-  .old-price{margin-top:24px;font-family:"Space Mono",monospace;font-size:15px;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px}
-  .price{font-family:Archivo;font-weight:900;font-size:clamp(32px,3.4vw,46px);letter-spacing:-.03em;line-height:1;margin-top:6px}
-  .price .from{font-family:"Space Mono",monospace;font-size:14px;font-weight:400;letter-spacing:0;vertical-align:middle;margin-right:6px}
+  .old-price{margin-top:22px;font-family:"Space Mono",monospace;font-size:15px;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px}
+  .price{font-family:Archivo;font-weight:900;font-size:clamp(30px,3.2vw,44px);letter-spacing:-.03em;line-height:1;margin-top:6px}
+  .price .from{font-family:"Space Mono",monospace;font-size:14px;font-weight:400;letter-spacing:0;margin-right:6px}
   .term{font-family:"Space Mono",monospace;font-size:13px;color:var(--muted);margin-top:10px}
-  .plan ul{list-style:none;display:grid;gap:10px;margin:26px 0 30px;flex:1}
+  .plan ul{list-style:none;display:grid;gap:10px;margin:24px 0 28px;flex:1}
   .plan li{display:flex;gap:10px;font-size:15px}
   .plan li::before{content:"—";color:var(--accent);font-weight:700}
   .plan .btn{width:100%}
-  .plan-ai{grid-column:1/-1;display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;border-top:2px solid var(--line);border-right:0;padding:clamp(22px,2.6vw,34px) var(--pad)}
-  .plan-ai .plan-desc{min-height:0;max-width:620px}
-  .note{padding:18px var(--pad) clamp(30px,4vw,50px);color:var(--muted);font-size:14px}
+  .plan-ai{margin-top:clamp(18px,2vw,26px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;background:var(--ink);color:var(--bg);border:3px solid var(--ink);padding:clamp(22px,2.6vw,32px) clamp(18px,2.4vw,30px)}
+  .plan-ai .plan-desc{color:#b9b9b9;min-height:0;max-width:620px}
+  .note{margin-top:20px;color:var(--muted);font-size:14px}
 
-  /* ---------- PROCESS ---------- */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--line)}
-  .step{padding:clamp(22px,2.6vw,34px) clamp(18px,2vw,28px);border-right:2px solid var(--line)}
-  .step:last-child{border-right:0}
-  .step .n{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.2em;color:var(--accent);margin-bottom:18px}
-  .step h4{font-family:Archivo;font-weight:800;font-size:clamp(18px,1.9vw,24px);text-transform:uppercase;margin-bottom:10px}
-  .step p{color:var(--muted);font-size:15px}
+  /* ---------- PROCESS (чёрная врезка) ---------- */
+  .dark{background:var(--ink);color:var(--bg)}
+  .dark .eyebrow{color:var(--accent)}
+  .dark .ghost-num{color:rgba(255,255,255,.07)}
+  .dark .sec-head p{color:#b9b9b9}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,26px)}
+  .step{border:3px solid var(--bg);padding:clamp(18px,2.2vw,28px);transition:background .18s,color .18s}
+  .step:hover{background:var(--accent);color:var(--ink);border-color:var(--ink)}
+  .step .n{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.2em;color:var(--accent);margin-bottom:16px}
+  .step:hover .n{color:var(--ink)}
+  .step h4{font-family:Archivo;font-weight:800;font-size:clamp(17px,1.8vw,23px);text-transform:uppercase;margin-bottom:10px}
+  .step p{color:#b9b9b9;font-size:15px}
+  .step:hover p{color:var(--ink)}
 
   /* ---------- PROJECTS ---------- */
-  .projects{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--line)}
-  .case{display:flex;flex-direction:column;border-right:2px solid var(--line);border-bottom:2px solid var(--line);transition:background .15s,color .15s}
-  .case:nth-child(2n){border-right:0}
-  .case:hover{background:var(--ink);color:var(--bg)}
-  .case:hover .case-link{color:var(--accent)}
-  .case-img{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:2px solid var(--line);background:#ddd}
-  .case-img img{width:100%;height:100%;object-fit:cover;object-position:top}
-  .case-badge{position:absolute;top:0;left:0;background:var(--accent);color:var(--ink);font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;border-right:2px solid var(--line);border-bottom:2px solid var(--line)}
-  .case-body{padding:clamp(18px,2.2vw,28px);display:flex;flex-direction:column;gap:8px;flex:1}
+  .projects{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,32px)}
+  .case{display:flex;flex-direction:column;background:var(--paper);border:3px solid var(--ink);box-shadow:8px 8px 0 rgba(17,17,17,.18);overflow:hidden;transition:transform .18s,box-shadow .18s,background .18s,color .18s}
+  .case:hover{transform:translate(-4px,-4px);box-shadow:14px 14px 0 var(--accent)}
+  .case-img{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:3px solid var(--ink);background:#ddd}
+  .case-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s}
+  .case:hover .case-img img{transform:scale(1.04)}
+  .case-badge{position:absolute;top:12px;left:12px;background:var(--accent);color:var(--ink);border:2px solid var(--ink);font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px}
+  .case-body{padding:clamp(18px,2.2vw,26px);display:flex;flex-direction:column;gap:8px;flex:1}
   .case .tag{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-  .case:hover .tag{color:#b9b9b9}
-  .case h4{font-family:Archivo;font-weight:800;font-size:clamp(20px,2.2vw,30px);text-transform:uppercase;letter-spacing:-.01em}
-  .case p{font-size:15px;opacity:.78;flex:1}
+  .case h4{font-family:Archivo;font-weight:800;font-size:clamp(20px,2.2vw,30px);text-transform:uppercase}
+  .case p{font-size:15px;color:#3a3a3a;flex:1}
   .case-link{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-  .case-free{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:clamp(20px,4vw,48px);padding:clamp(24px,3vw,40px);border-bottom:2px solid var(--line);background:var(--accent);transition:background .15s,color .15s}
+  .case-free{display:flex;flex-direction:column;justify-content:space-between;gap:clamp(20px,4vw,48px);padding:clamp(24px,3vw,40px);background:var(--accent);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
   .case-free .tag{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-  .case-free:hover{background:var(--ink);color:var(--bg)}
-  .case-free h4{font-family:Archivo;font-weight:900;font-size:clamp(22px,3vw,40px);text-transform:uppercase;letter-spacing:-.02em}
-  .note-concept{padding:18px var(--pad) clamp(30px,4vw,50px);color:var(--muted);font-size:13px}
+  .case-free h4{font-family:Archivo;font-weight:900;font-size:clamp(22px,3vw,40px);text-transform:uppercase;letter-spacing:-.02em;margin-top:10px}
+  .note-concept{margin-top:20px;color:var(--muted);font-size:13px}
 
   /* ---------- FAQ ---------- */
-  details{border-top:2px solid var(--line)}
-  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:clamp(18px,2.2vw,28px) var(--pad);font-family:Archivo;font-weight:700;font-size:clamp(17px,1.9vw,24px);text-transform:uppercase}
+  .faq{display:grid;gap:12px}
+  details{background:var(--paper);border:3px solid var(--ink)}
+  details[open]{box-shadow:8px 8px 0 rgba(17,17,17,.18)}
+  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:clamp(16px,2vw,24px) clamp(18px,2.2vw,28px);font-family:Archivo;font-weight:700;font-size:clamp(16px,1.8vw,22px);text-transform:uppercase}
   summary::-webkit-details-marker{display:none}
   summary::after{content:"+";font-family:"Space Mono",monospace;color:var(--accent);font-size:26px}
-  details[open] summary::after{content:"−"}
   details[open] summary{background:var(--ink);color:var(--bg)}
-  details p{padding:clamp(16px,2vw,24px) var(--pad);max-width:760px;color:var(--muted)}
+  details[open] summary::after{content:"−"}
+  details p{padding:clamp(16px,2vw,24px);color:var(--muted);max-width:800px}
 
   /* ---------- CONTACT ---------- */
-  .lead{display:grid;grid-template-columns:1fr 1.15fr;border-top:2px solid var(--line)}
-  .lead-info{padding:clamp(26px,3vw,44px) var(--pad);border-right:2px solid var(--line)}
+  .lead{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(20px,2.6vw,34px);align-items:start}
+  .lead-info{background:var(--ink);color:var(--bg);padding:clamp(24px,3vw,40px);box-shadow:10px 10px 0 var(--accent)}
   .lead-info h3{font-family:Archivo;font-weight:800;font-size:clamp(22px,2.4vw,32px);text-transform:uppercase;margin-bottom:14px}
-  .lead-info > p{color:var(--muted);margin-bottom:26px;max-width:460px}
+  .lead-info > p{color:#b9b9b9;margin-bottom:26px}
   .lead-perks{list-style:none;display:grid;gap:12px}
   .lead-perks li{display:flex;gap:12px;font-size:15px}
   .lead-perks li::before{content:"✱";color:var(--accent)}
-  .ya-form{padding:0;background:#fff;align-self:start}
+  .ya-form{background:#fff;border:3px solid var(--ink);box-shadow:8px 8px 0 rgba(17,17,17,.18)}
   .ya-form iframe{display:block;width:100%;border:0;min-height:830px;transition:height .3s}
   @media (max-width:1000px){.ya-form iframe{min-height:900px}}
   @media (max-width:560px){.ya-form iframe{min-height:1000px}}
-  .socials{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--line)}
-  .social{display:flex;align-items:center;gap:16px;padding:clamp(20px,2.4vw,30px) clamp(18px,2.4vw,32px);border-right:2px solid var(--line);transition:background .15s,color .15s}
-  .social:last-child{border-right:0}
-  .social:hover{background:var(--accent)}
-  .social-ico{width:44px;height:44px;border:2px solid var(--line);display:grid;place-items:center;flex:0 0 44px}
+  .socials{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px);margin-top:clamp(20px,2.6vw,32px)}
+  .social{display:flex;align-items:center;gap:16px;padding:clamp(18px,2.2vw,26px);background:var(--paper);border:3px solid var(--ink);box-shadow:6px 6px 0 rgba(17,17,17,.18);transition:background .15s,transform .15s}
+  .social:hover{background:var(--accent);transform:translate(-3px,-3px)}
+  .social-ico{width:44px;height:44px;border:2px solid var(--ink);display:grid;place-items:center;flex:0 0 44px}
   .social-ico svg{width:20px;height:20px}
   .social-txt b{display:block;font-family:Archivo;font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
   .social-txt small{display:block;font-family:"Space Mono",monospace;font-size:14px;color:var(--muted);margin-top:4px}
   .social:hover .social-txt small{color:var(--ink)}
 
   /* ---------- FOOTER ---------- */
-  footer{display:grid;grid-template-columns:1.2fr 1fr 1fr}
-  .foot-col{padding:clamp(24px,3vw,40px) clamp(18px,2.4vw,32px);border-right:2px solid var(--line);font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
-  .foot-col:last-child{border-right:0}
-  .foot-col b{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
-  .foot-brand{display:flex;align-items:center;gap:10px;font-family:Archivo;font-weight:900;font-size:18px;color:var(--ink);letter-spacing:.06em}
-  .foot-brand img{width:24px;height:24px}
+  footer{background:var(--ink);color:#b9b9b9;padding:clamp(34px,4vw,60px) 0}
+  .foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:clamp(22px,3vw,44px)}
+  .foot b{display:block;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bg);margin-bottom:12px}
+  .foot a{display:block;margin-bottom:6px}
+  .foot-brand{display:flex;align-items:center;gap:10px;font-family:Archivo;font-weight:900;font-size:20px;color:var(--bg);letter-spacing:.06em;margin-bottom:12px}
+  .foot-brand img{width:26px;height:26px}
   .foot-link{text-decoration:underline;text-underline-offset:4px}
   .foot-link:hover{color:var(--accent)}
 
   /* ---------- COOKIE ---------- */
-  .cookie{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;align-items:center;gap:18px;padding:16px var(--pad);background:var(--ink);color:var(--bg);border-top:2px solid var(--line);font-size:14px}
+  .cookie{position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;align-items:center;gap:18px;padding:16px var(--pad);background:var(--ink);color:var(--bg);border-top:var(--rule);font-size:14px}
   .cookie[hidden]{display:none}
   .cookie p{flex:1}
   .cookie a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
   .cookie-btns{display:flex;gap:10px;flex:0 0 auto}
-  .cookie button{border:2px solid var(--bg);background:var(--accent);color:var(--ink);font-family:Inter;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:12px 20px;cursor:pointer}
+  .cookie button{border:3px solid var(--bg);background:var(--accent);color:var(--ink);font-family:Inter;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:12px 20px;cursor:pointer}
   .cookie button.ghost{background:transparent;color:var(--bg)}
   .cookie button:hover{background:var(--bg);color:var(--ink)}
 
-  /* ---------- REVEAL ---------- */
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease}
+  /* ---------- АНИМАЦИИ ПРОКРУТКИ ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
+  .reveal.left{transform:translateX(-34px)}
+  .reveal.left.in{transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}.reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}.reveal[data-d="4"]{transition-delay:.32s}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1000px){
-    .hero-top{grid-template-columns:1fr}
-    .hero-art{border-left:0;border-top:2px solid var(--line);min-height:260px}
-    .hero-bottom{grid-template-columns:1fr 1fr}
-    .hero-bottom div:nth-child(2n){border-right:0}
-    .hero-bottom div:nth-child(-n+2){border-bottom:2px solid var(--line)}
+    .hero-grid{grid-template-columns:1fr}
+    .hero-art{max-width:460px;margin-inline:auto;width:100%}
+    .facts{grid-template-columns:1fr 1fr}
     .about{grid-template-columns:1fr}
-    .about-text{border-right:0;border-bottom:2px solid var(--line)}
+    .sec-head{grid-template-columns:1fr}
     .plans{grid-template-columns:1fr}
-    .plan{border-right:0;border-bottom:2px solid var(--line)}
+    .plan.hot{transform:none}
     .steps{grid-template-columns:1fr 1fr}
-    .step:nth-child(2n){border-right:0}
-    .step:nth-child(-n+2){border-bottom:2px solid var(--line)}
     .lead{grid-template-columns:1fr}
-    .lead-info{border-right:0;border-bottom:2px solid var(--line)}
-    footer{grid-template-columns:1fr}
-    .foot-col{border-right:0;border-bottom:2px solid var(--line)}
-    .foot-col:last-child{border-bottom:0}
   }
   @media (max-width:760px){
     body{font-size:16px}
-    .nav ul{position:fixed;inset:66px 0 auto;flex-direction:column;background:var(--bg);border-bottom:2px solid var(--line);transform:translateY(-130%);transition:transform .3s}
+    .nav ul{position:fixed;inset:66px 0 auto;flex-direction:column;background:var(--bg);border-bottom:var(--rule);transform:translateY(-130%);transition:transform .3s}
     .nav.open ul{transform:none}
-    .nav ul a{border-left:0;border-top:2px solid var(--line);padding:18px var(--pad);font-size:15px}
+    .nav ul a{padding:18px var(--pad);font-size:14px;border-top:2px solid var(--ink)}
     .burger{display:block}
-    .hero{background-image:repeating-linear-gradient(90deg,var(--hair) 0 1px,transparent 1px calc(100% / 3))}
     .svc{grid-template-columns:auto 1fr;gap:14px}
-    .svc-tag{grid-column:2}
+    .svc-tag{grid-column:2;justify-self:start}
     .projects{grid-template-columns:1fr}
-    .case{border-right:0}
+    .steps{grid-template-columns:1fr}
     .socials{grid-template-columns:1fr}
-    .social{border-right:0;border-bottom:2px solid var(--line)}
-    .social:last-child{border-bottom:0}
+    .foot{grid-template-columns:1fr}
     .cookie{flex-direction:column;align-items:stretch}
     .cookie-btns button{flex:1}
+    .promo{transform:none}
   }
 </style>
 </head>
@@ -286,360 +298,404 @@
 
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
-  <div class="wrap">
-    <a href="#top" class="logo" aria-label="Klozifi"><img src="logo-new.svg" alt="" width="30" height="30">KLOZIFI</a>
-    <ul id="menu">
-      <li><a href="#about">Обо мне</a></li>
-      <li><a href="#services">Услуги</a></li>
-      <li><a href="#pricing">Цены</a></li>
-      <li><a href="#projects">Проекты</a></li>
-      <li><a href="#contact" class="hot">Связаться</a></li>
-    </ul>
-    <button class="burger" id="burger" aria-label="Меню"><span></span><span></span></button>
-  </div>
+  <a href="#top" class="logo" aria-label="Klozifi"><img src="logo-new.svg" alt="" width="30" height="30">KLOZIFI</a>
+  <ul id="menu">
+    <li><a href="#about">Обо мне</a></li>
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#pricing">Цены</a></li>
+    <li><a href="#projects">Проекты</a></li>
+    <li><a href="#contact" class="hot">Связаться</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span></button>
 </nav>
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
-  <div class="hero-top">
-    <div class="hero-left">
-      <div class="hero-meta mono">
-        <span><b>Шейко Артём</b></span>
-        <span>Веб-разработчик</span>
-        <span>Ставрополь / удалённо</span>
-        <span>2026</span>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-meta">
+        <span><b>Шейко Артём</b></span><span>Веб-разработчик</span><span>Ставрополь / удалённо</span><span>2026</span>
       </div>
-      <h1 class="disp">Сайты<br><em>Боты</em><br><span class="thin">AI-агенты</span></h1>
+      <h1 class="disp">Сайты<br><em>Боты</em><br><span class="out">AI-агенты</span></h1>
       <p class="hero-lead">Делаю под ключ: дизайн, код и запуск на вашем домене. Без студий и менеджеров — вы общаетесь напрямую со мной.</p>
       <div class="hero-cta">
         <a href="#lead" class="btn">Обсудить проект</a>
-        <span class="status mono"><i></i>Открыт для заказов</span>
+        <a href="#projects" class="btn btn-paper">Смотреть работы</a>
       </div>
     </div>
 
     <div class="hero-art" id="art" aria-hidden="true">
-      <svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice">
-        <g class="art-grid">
-          <line x1="0" y1="130" x2="400" y2="130"/><line x1="0" y1="260" x2="400" y2="260"/><line x1="0" y1="390" x2="400" y2="390"/>
-          <line x1="100" y1="0" x2="100" y2="520"/><line x1="200" y1="0" x2="200" y2="520"/><line x1="300" y1="0" x2="300" y2="520"/>
+      <svg viewBox="0 0 400 400" id="artSvg">
+        <g id="artLayer1">
+          <circle class="net-ring dash" cx="200" cy="200" r="168"/>
+          <g class="spin-slow"><rect class="net-ring" x="92" y="92" width="216" height="216"/></g>
+          <g class="spin-rev"><rect class="net-ring" x="128" y="128" width="144" height="144"/></g>
         </g>
-        <g id="artMove">
-          <g class="art-rot" style="transform-box:fill-box">
-            <rect class="art-shape" x="110" y="170" width="180" height="180"/>
-          </g>
-          <g class="art-rot-2" style="transform-box:fill-box">
-            <rect class="art-shape" x="140" y="200" width="120" height="120"/>
-          </g>
-          <circle class="art-shape" cx="200" cy="260" r="118"/>
-          <circle class="art-accent" cx="200" cy="142" r="9"/>
-          <circle class="art-accent art-pulse" cx="318" cy="260" r="9"/>
-          <circle class="art-accent" cx="200" cy="378" r="9"/>
-          <circle class="art-accent art-pulse" cx="82" cy="260" r="9"/>
-          <rect class="art-accent" x="186" y="246" width="28" height="28"/>
+        <g id="artLayer2">
+          <line class="net-line" x1="200" y1="36" x2="340" y2="200"/>
+          <line class="net-line" x1="340" y1="200" x2="200" y2="364"/>
+          <line class="net-line" x1="200" y1="364" x2="60" y2="200"/>
+          <line class="net-line" x1="60" y1="200" x2="200" y2="36"/>
+          <line class="net-line" x1="60" y1="200" x2="340" y2="200"/>
+          <line class="net-line" x1="200" y1="36" x2="200" y2="364"/>
+          <circle class="net-node acc n-float" cx="200" cy="36" r="10"/>
+          <circle class="net-node n-float b" cx="340" cy="200" r="8"/>
+          <circle class="net-node acc n-float c" cx="200" cy="364" r="10"/>
+          <circle class="net-node n-float" cx="60" cy="200" r="8"/>
+          <circle class="net-node acc n-float b" cx="296" cy="104" r="6"/>
+          <circle class="net-node n-float c" cx="104" cy="296" r="6"/>
+          <rect class="net-node acc" x="184" y="184" width="32" height="32"/>
         </g>
       </svg>
+
+      <div class="stamp">
+        <svg viewBox="0 0 120 120">
+          <defs><path id="circlePath" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+          <circle cx="60" cy="60" r="58" fill="none" stroke="#111" stroke-width="3"/>
+          <circle cx="60" cy="60" r="34" fill="none" stroke="#111" stroke-width="2"/>
+          <text font-family="Space Mono, monospace" font-size="11.5" letter-spacing="2.4" fill="#111">
+            <textPath href="#circlePath" startOffset="0">ОТКРЫТ ДЛЯ ЗАКАЗОВ · KLOZIFI · 2026 · </textPath>
+          </text>
+        </svg>
+        <div class="stamp-mid"><i></i></div>
+      </div>
     </div>
   </div>
 
-  <div class="hero-bottom">
-    <div><b>от 7 дней</b>срок запуска</div>
-    <div><b>от 10 000 ₽</b>стоимость сайта</div>
-    <div><b>3 проекта</b>в портфолио</div>
-    <div><b>1 на 1</b>без менеджеров</div>
+  <div class="facts">
+    <div class="fact reveal"><b data-count="7" data-prefix="от ">от 7</b><span>дней — срок запуска</span></div>
+    <div class="fact reveal" data-d="1"><b data-count="10000" data-prefix="от " data-suffix=" ₽">от 10 000 ₽</b><span>стоимость сайта</span></div>
+    <div class="fact reveal" data-d="2"><b data-count="3">3</b><span>проекта в портфолио</span></div>
+    <div class="fact reveal" data-d="3"><b>1 на 1</b><span>без менеджеров</span></div>
+  </div>
+
+  <div class="hero-ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Сайты</span><span>Telegram-боты</span><span>AI-агенты</span><span>Лендинги</span><span>Интеграции</span><span>Автоматизация</span>
+      <span>Сайты</span><span>Telegram-боты</span><span>AI-агенты</span><span>Лендинги</span><span>Интеграции</span><span>Автоматизация</span>
+    </div>
   </div>
 </header>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Сайты</span><span>Telegram-боты</span><span>AI-агенты</span><span>Лендинги</span><span>Интеграции</span><span>Автоматизация</span>
-    <span>Сайты</span><span>Telegram-боты</span><span>AI-агенты</span><span>Лендинги</span><span>Интеграции</span><span>Автоматизация</span>
-  </div>
-</div>
-
 <!-- ============ ABOUT ============ -->
 <section id="about">
-  <div class="sec-head">
-    <div>
-      <span class="eyebrow">01 / Обо мне</span>
-      <h2 class="disp reveal">Кто<br>делает</h2>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="ghost-num">01</span>
+        <span class="eyebrow">Обо мне</span>
+        <h2 class="disp reveal left">Кто<br>делает</h2>
+      </div>
+      <p class="reveal" data-d="1">Веду проект целиком и отвечаю за результат: от первого разговора до работающего сайта на вашем домене.</p>
     </div>
-    <p class="reveal">Веду проект целиком и отвечаю за результат: от первого разговора до работающего сайта на вашем домене.</p>
-  </div>
-  <div class="about">
-    <div class="about-text reveal">
-      Я Артём — веб-разработчик. Превращаю идеи в <b>работающие продукты</b>: от лендинга за неделю до сайта с личным кабинетом, Telegram-бота, который принимает заказы, и <b>AI-агента</b>, который отвечает клиентам вместо вас.
-      <ul class="stack">
-        <li>HTML / CSS / JS</li><li>Python</li><li>Telegram Bot API</li><li>OpenAI / Claude API</li><li>Адаптив</li><li>SEO-основа</li>
-      </ul>
-    </div>
-    <div class="stats">
-      <div class="stat reveal"><strong>от 7</strong><span>дней — срок запуска лендинга</span></div>
-      <div class="stat reveal"><strong>100%</strong><span>адаптив под телефоны и планшеты</span></div>
-      <div class="stat reveal"><strong>1 на 1</strong><span>общаетесь напрямую с разработчиком</span></div>
-      <div class="stat reveal"><strong>14</strong><span>дней бесплатной поддержки после сдачи</span></div>
+
+    <div class="about">
+      <div class="reveal">
+        <p class="about-text">Я Артём — веб-разработчик. Превращаю идеи в <b>работающие продукты</b>: от лендинга за неделю до сайта с личным кабинетом, Telegram-бота, который принимает заказы, и <b>AI-агента</b>, который отвечает клиентам вместо вас.</p>
+        <ul class="stack">
+          <li>HTML / CSS / JS</li><li>Python</li><li>Telegram Bot API</li><li>OpenAI / Claude API</li><li>Адаптив</li><li>SEO-основа</li>
+        </ul>
+      </div>
+      <div class="about-side reveal" data-d="1">
+        <h3>Что входит всегда</h3>
+        <ul>
+          <li>Адаптив под телефоны и планшеты</li>
+          <li>Две итерации правок на каждом этапе</li>
+          <li>14 дней бесплатной поддержки после сдачи</li>
+          <li>Помощь с доменом, хостингом и запуском</li>
+          <li>Передача файлов и доступов вам</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ SERVICES ============ -->
 <section id="services">
-  <div class="sec-head">
-    <div>
-      <span class="eyebrow">02 / Услуги</span>
-      <h2 class="disp reveal">Что я<br>делаю</h2>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="ghost-num">02</span>
+        <span class="eyebrow">Услуги</span>
+        <h2 class="disp reveal left">Что я<br><em>делаю</em></h2>
+      </div>
+      <p class="reveal" data-d="1">Беру проект целиком: от идеи и дизайна до запуска на хостинге. Вам не нужно искать отдельно дизайнера, верстальщика и программиста.</p>
     </div>
-    <p class="reveal">Беру проект целиком: от идеи и дизайна до запуска на хостинге. Вам не нужно искать отдельно дизайнера, верстальщика и программиста.</p>
-  </div>
 
-  <div class="svc reveal">
-    <div class="svc-num">01</div>
-    <div>
-      <h3>Сайты и лендинги</h3>
-      <p>Продающие одностраничники, сайты-визитки и многостраничные сайты с уникальным дизайном, анимациями и адаптивом под любые экраны.</p>
+    <div class="svc-list">
+      <div class="svc reveal">
+        <div class="svc-num">01</div>
+        <div>
+          <h3>Сайты и лендинги</h3>
+          <p>Продающие одностраничники, сайты-визитки и многостраничные сайты с уникальным дизайном, анимациями и адаптивом под любые экраны.</p>
+        </div>
+        <span class="svc-tag">от 10 000 ₽</span>
+      </div>
+      <div class="svc reveal" data-d="1">
+        <div class="svc-num">02</div>
+        <div>
+          <h3>Telegram-боты</h3>
+          <p>Боты для записи, приёма заявок и оплат, рассылок, каталогов и магазинов. С админ-панелью и интеграцией с вашими сервисами.</p>
+        </div>
+        <span class="svc-tag">по задаче</span>
+      </div>
+      <div class="svc reveal" data-d="2">
+        <div class="svc-num">03</div>
+        <div>
+          <h3>AI-агенты</h3>
+          <p>Умные ассистенты на базе нейросетей: отвечают клиентам 24/7, консультируют по вашей базе знаний, квалифицируют лиды и автоматизируют рутину.</p>
+        </div>
+        <span class="svc-tag">по запросу</span>
+      </div>
+      <div class="svc reveal" data-d="3">
+        <div class="svc-num">04</div>
+        <div>
+          <h3>Поддержка и доработка</h3>
+          <p>Обновляю контент, добавляю новые разделы, чиню баги и ускоряю загрузку уже существующих сайтов.</p>
+        </div>
+        <span class="svc-tag">по задаче</span>
+      </div>
     </div>
-    <span class="svc-tag">от 10 000 ₽</span>
-  </div>
-  <div class="svc reveal">
-    <div class="svc-num">02</div>
-    <div>
-      <h3>Telegram-боты</h3>
-      <p>Боты для записи, приёма заявок и оплат, рассылок, каталогов и магазинов. С админ-панелью и интеграцией с вашими сервисами.</p>
-    </div>
-    <span class="svc-tag">по задаче</span>
-  </div>
-  <div class="svc reveal">
-    <div class="svc-num">03</div>
-    <div>
-      <h3>AI-агенты</h3>
-      <p>Умные ассистенты на базе нейросетей: отвечают клиентам 24/7, консультируют по вашей базе знаний, квалифицируют лиды и автоматизируют рутину.</p>
-    </div>
-    <span class="svc-tag">по запросу</span>
-  </div>
-  <div class="svc reveal">
-    <div class="svc-num">04</div>
-    <div>
-      <h3>Поддержка и доработка</h3>
-      <p>Обновляю контент, добавляю новые разделы, чиню баги и ускоряю загрузку уже существующих сайтов.</p>
-    </div>
-    <span class="svc-tag">по задаче</span>
   </div>
 </section>
 
 <!-- ============ PRICING ============ -->
 <section id="pricing">
-  <div class="sec-head">
-    <div>
-      <span class="eyebrow">03 / Цены</span>
-      <h2 class="disp reveal">Прозрачные<br><em>цены</em></h2>
-    </div>
-    <p class="reveal">Фиксированная стоимость без скрытых платежей. Работаю по предоплате 50% — вторую часть вы платите, когда всё готово и вам нравится.</p>
-  </div>
-
-  <div class="promo">
-    <b>−10 000 ₽</b>
-    <span>Скидка первым клиентам: пока собираю портфолио, делаю сайты дешевле обычной цены.</span>
-  </div>
-
-  <div class="plans">
-    <div class="plan reveal">
-      <div class="plan-name">Старт</div>
-      <div class="plan-desc">Лендинг или сайт-визитка, чтобы быстро заявить о себе</div>
-      <div class="old-price">20 000 ₽</div>
-      <div class="price"><span class="from">от</span>10 000 ₽</div>
-      <div class="term">срок: 7–10 дней</div>
-      <ul>
-        <li>До 7 блоков на одной странице</li>
-        <li>Адаптив под мобильные</li>
-        <li>Форма заявки в Telegram</li>
-        <li>Базовая SEO-настройка</li>
-        <li>Помощь с доменом и хостингом</li>
-      </ul>
-      <a href="#lead" data-plan="Сайт «Старт»" class="btn btn-ghost">Заказать</a>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="ghost-num">03</span>
+        <span class="eyebrow">Цены</span>
+        <h2 class="disp reveal left">Прозрачные<br><em>цены</em></h2>
+      </div>
+      <p class="reveal" data-d="1">Фиксированная стоимость без скрытых платежей. Работаю по предоплате 50% — вторую часть вы платите, когда всё готово и вам нравится.</p>
     </div>
 
-    <div class="plan hot reveal">
-      <span class="badge">Популярный</span>
-      <div class="plan-name">Бизнес</div>
-      <div class="plan-desc">Полноценный сайт для компании или эксперта</div>
-      <div class="old-price">30 000 ₽</div>
-      <div class="price"><span class="from">от</span>20 000 ₽</div>
-      <div class="term">срок: 2–3 недели</div>
-      <ul>
-        <li>До 5 страниц</li>
-        <li>Уникальный дизайн и анимации</li>
-        <li>Каталог услуг / товаров</li>
-        <li>Интеграция с Telegram и CRM</li>
-        <li>Подключение аналитики</li>
-        <li>Инструкция по управлению</li>
-      </ul>
-      <a href="#lead" data-plan="Сайт «Бизнес»" class="btn">Заказать</a>
+    <div class="promo reveal">
+      <b>−10 000 ₽</b>
+      <span>Скидка первым клиентам: пока собираю портфолио, делаю сайты дешевле обычной цены.</span>
     </div>
 
-    <div class="plan reveal">
-      <div class="plan-name">Про</div>
-      <div class="plan-desc">Сложный сайт с логикой, базой данных и личным кабинетом</div>
-      <div class="old-price">40 000 ₽</div>
-      <div class="price"><span class="from">от</span>30 000 ₽</div>
-      <div class="term">срок: от 3 недель</div>
-      <ul>
-        <li>Всё из тарифа «Бизнес»</li>
-        <li>Личный кабинет / авторизация</li>
-        <li>Админ-панель для контента</li>
-        <li>Онлайн-оплата</li>
-        <li>Интеграции по API</li>
-        <li>Приоритетная поддержка 30 дней</li>
-      </ul>
-      <a href="#lead" data-plan="Сайт «Про»" class="btn btn-ghost">Заказать</a>
+    <div class="plans">
+      <div class="plan reveal">
+        <div class="plan-name">Старт</div>
+        <div class="plan-desc">Лендинг или сайт-визитка, чтобы быстро заявить о себе</div>
+        <div class="old-price">20 000 ₽</div>
+        <div class="price"><span class="from">от</span>10 000 ₽</div>
+        <div class="term">срок: 7–10 дней</div>
+        <ul>
+          <li>До 7 блоков на одной странице</li>
+          <li>Адаптив под мобильные</li>
+          <li>Форма заявки в Telegram</li>
+          <li>Базовая SEO-настройка</li>
+          <li>Помощь с доменом и хостингом</li>
+        </ul>
+        <a href="#lead" data-plan="Сайт «Старт»" class="btn btn-paper">Заказать</a>
+      </div>
+
+      <div class="plan hot reveal" data-d="1">
+        <span class="badge">Популярный</span>
+        <div class="plan-name">Бизнес</div>
+        <div class="plan-desc">Полноценный сайт для компании или эксперта</div>
+        <div class="old-price">30 000 ₽</div>
+        <div class="price"><span class="from">от</span>20 000 ₽</div>
+        <div class="term">срок: 2–3 недели</div>
+        <ul>
+          <li>До 5 страниц</li>
+          <li>Уникальный дизайн и анимации</li>
+          <li>Каталог услуг / товаров</li>
+          <li>Интеграция с Telegram и CRM</li>
+          <li>Подключение аналитики</li>
+          <li>Инструкция по управлению</li>
+        </ul>
+        <a href="#lead" data-plan="Сайт «Бизнес»" class="btn">Заказать</a>
+      </div>
+
+      <div class="plan reveal" data-d="2">
+        <div class="plan-name">Про</div>
+        <div class="plan-desc">Сложный сайт с логикой, базой данных и личным кабинетом</div>
+        <div class="old-price">40 000 ₽</div>
+        <div class="price"><span class="from">от</span>30 000 ₽</div>
+        <div class="term">срок: от 3 недель</div>
+        <ul>
+          <li>Всё из тарифа «Бизнес»</li>
+          <li>Личный кабинет / авторизация</li>
+          <li>Админ-панель для контента</li>
+          <li>Онлайн-оплата</li>
+          <li>Интеграции по API</li>
+          <li>Приоритетная поддержка 30 дней</li>
+        </ul>
+        <a href="#lead" data-plan="Сайт «Про»" class="btn btn-paper">Заказать</a>
+      </div>
     </div>
 
-    <div class="plan-ai">
+    <div class="plan-ai reveal">
       <div>
         <div class="plan-name">Telegram-боты и AI-агенты</div>
         <div class="plan-desc">Стоимость зависит от сценариев, интеграций и объёма базы знаний. Опишите задачу — посчитаю бесплатно в течение дня.</div>
       </div>
-      <a href="#lead" class="btn btn-ink" data-plan="Telegram-бот">Обсудить задачу</a>
+      <a href="#lead" class="btn" data-plan="Telegram-бот">Обсудить задачу</a>
     </div>
+    <p class="note">Не нашли подходящий вариант? Напишите — соберу индивидуальное предложение.</p>
   </div>
-  <p class="note">Не нашли подходящий вариант? Напишите — соберу индивидуальное предложение.</p>
 </section>
 
 <!-- ============ PROCESS ============ -->
-<section id="process">
-  <div class="sec-head">
-    <div>
-      <span class="eyebrow">04 / Как я работаю</span>
-      <h2 class="disp reveal">4 шага<br>к <em>запуску</em></h2>
+<section id="process" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="ghost-num">04</span>
+        <span class="eyebrow">Как я работаю</span>
+        <h2 class="disp reveal left">4 шага<br>к <em>запуску</em></h2>
+      </div>
+      <p class="reveal" data-d="1">Каждый этап заканчивается тем, что вы видите результат — макет, ссылку или готовый сайт.</p>
     </div>
-  </div>
-  <div class="steps">
-    <div class="step reveal"><div class="n">01</div><h4>Бриф</h4><p>Созваниваемся или переписываемся, разбираю задачу, цели и примеры, которые вам нравятся.</p></div>
-    <div class="step reveal"><div class="n">02</div><h4>Прототип</h4><p>Показываю структуру и дизайн главного экрана. Вносим правки до того, как я начну писать код.</p></div>
-    <div class="step reveal"><div class="n">03</div><h4>Разработка</h4><p>Собираю проект и регулярно показываю прогресс по ссылке — вы всегда видите, что происходит.</p></div>
-    <div class="step reveal"><div class="n">04</div><h4>Запуск</h4><p>Публикую на ваш домен, проверяю на всех устройствах и передаю доступы с инструкцией.</p></div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">01</div><h4>Бриф</h4><p>Созваниваемся или переписываемся, разбираю задачу, цели и примеры, которые вам нравятся.</p></div>
+      <div class="step reveal" data-d="1"><div class="n">02</div><h4>Прототип</h4><p>Показываю структуру и дизайн главного экрана. Вносим правки до того, как я начну писать код.</p></div>
+      <div class="step reveal" data-d="2"><div class="n">03</div><h4>Разработка</h4><p>Собираю проект и регулярно показываю прогресс по ссылке — вы всегда видите, что происходит.</p></div>
+      <div class="step reveal" data-d="3"><div class="n">04</div><h4>Запуск</h4><p>Публикую на ваш домен, проверяю на всех устройствах и передаю доступы с инструкцией.</p></div>
+    </div>
   </div>
 </section>
 
 <!-- ============ PROJECTS ============ -->
 <section id="projects">
-  <div class="sec-head">
-    <div>
-      <span class="eyebrow">05 / Портфолио</span>
-      <h2 class="disp reveal">Проекты</h2>
-    </div>
-    <p class="reveal">Концепты редизайна реальных сайтов: беру устаревший сайт и показываю, каким он может быть. Все открываются вживую.</p>
-  </div>
-  <div class="projects">
-    <a href="https://klozifia.github.io/questos/" target="_blank" rel="noopener" class="case reveal">
-      <div class="case-img">
-        <picture><source srcset="projects/questos.webp" type="image/webp"><img src="projects/questos.jpg" alt="Концепт редизайна сайта Questos" loading="lazy" width="1200" height="750"></picture>
-        <span class="case-badge">Концепт</span>
-      </div>
-      <div class="case-body">
-        <span class="tag">Редизайн · Квест-комната, Новосибирск</span>
-        <h4>Questos</h4>
-        <p>Атмосферный тёмный сайт вместо устаревшего: понятные цены, звонок для брони в одно касание, удобная мобильная версия.</p>
-        <span class="case-link">Смотреть сайт ↗</span>
-      </div>
-    </a>
-    <a href="https://klozifia.github.io/en126/" target="_blank" rel="noopener" class="case reveal">
-      <div class="case-img">
-        <picture><source srcset="projects/en126.webp" type="image/webp"><img src="projects/en126.jpg" alt="Концепт редизайна сайта Encounter 126" loading="lazy" width="1200" height="750"></picture>
-        <span class="case-badge">Концепт · 3D</span>
-      </div>
-      <div class="case-body">
-        <span class="tag">Редизайн · Городские игры Encounter, КМВ</span>
-        <h4>Encounter 126</h4>
-        <p>Ночной 3D-город на Three.js, таймер до ближайшей игры, архив, рейтинг авторов и статистика — на реальных данных.</p>
-        <span class="case-link">Смотреть сайт ↗</span>
-      </div>
-    </a>
-    <a href="https://klozifia.github.io/ems-fitness/" target="_blank" rel="noopener" class="case reveal">
-      <div class="case-img">
-        <picture><source srcset="projects/ems.webp" type="image/webp"><img src="projects/ems.jpg" alt="Концепт редизайна сайта EMS Fitness" loading="lazy" width="1200" height="750"></picture>
-        <span class="case-badge">Концепт</span>
-      </div>
-      <div class="case-body">
-        <span class="tag">Редизайн · EMS-студия, Новосибирск</span>
-        <h4>EMS Fitness</h4>
-        <p>Светлый «воздушный» сайт с живой стеклянной сферой, каталог с заказом в мессенджере, галерея и запись на пробную тренировку.</p>
-        <span class="case-link">Смотреть сайт ↗</span>
-      </div>
-    </a>
-    <a href="#lead" class="case-free">
+  <div class="wrap">
+    <div class="sec-head">
       <div>
-        <span class="tag mono">Свободно</span>
-        <h4>Здесь может быть ваш сайт</h4>
+        <span class="ghost-num">05</span>
+        <span class="eyebrow">Портфолио</span>
+        <h2 class="disp reveal left">Проекты</h2>
       </div>
-      <span class="btn btn-ink">Занять место</span>
-    </a>
+      <p class="reveal" data-d="1">Концепты редизайна реальных сайтов: беру устаревший сайт и показываю, каким он может быть. Все открываются вживую.</p>
+    </div>
+
+    <div class="projects">
+      <a href="https://klozifia.github.io/questos/" target="_blank" rel="noopener" class="case reveal">
+        <div class="case-img">
+          <picture><source srcset="projects/questos.webp" type="image/webp"><img src="projects/questos.jpg" alt="Концепт редизайна сайта Questos" loading="lazy" width="1200" height="750"></picture>
+          <span class="case-badge">Концепт</span>
+        </div>
+        <div class="case-body">
+          <span class="tag">Редизайн · Квест-комната, Новосибирск</span>
+          <h4>Questos</h4>
+          <p>Атмосферный тёмный сайт вместо устаревшего: понятные цены, звонок для брони в одно касание, удобная мобильная версия.</p>
+          <span class="case-link">Смотреть сайт ↗</span>
+        </div>
+      </a>
+      <a href="https://klozifia.github.io/en126/" target="_blank" rel="noopener" class="case reveal" data-d="1">
+        <div class="case-img">
+          <picture><source srcset="projects/en126.webp" type="image/webp"><img src="projects/en126.jpg" alt="Концепт редизайна сайта Encounter 126" loading="lazy" width="1200" height="750"></picture>
+          <span class="case-badge">Концепт · 3D</span>
+        </div>
+        <div class="case-body">
+          <span class="tag">Редизайн · Городские игры Encounter, КМВ</span>
+          <h4>Encounter 126</h4>
+          <p>Ночной 3D-город на Three.js, таймер до ближайшей игры, архив, рейтинг авторов и статистика — на реальных данных.</p>
+          <span class="case-link">Смотреть сайт ↗</span>
+        </div>
+      </a>
+      <a href="https://klozifia.github.io/ems-fitness/" target="_blank" rel="noopener" class="case reveal" data-d="2">
+        <div class="case-img">
+          <picture><source srcset="projects/ems.webp" type="image/webp"><img src="projects/ems.jpg" alt="Концепт редизайна сайта EMS Fitness" loading="lazy" width="1200" height="750"></picture>
+          <span class="case-badge">Концепт</span>
+        </div>
+        <div class="case-body">
+          <span class="tag">Редизайн · EMS-студия, Новосибирск</span>
+          <h4>EMS Fitness</h4>
+          <p>Светлый «воздушный» сайт с живой стеклянной сферой, каталог с заказом в мессенджере, галерея и запись на пробную тренировку.</p>
+          <span class="case-link">Смотреть сайт ↗</span>
+        </div>
+      </a>
+      <a href="#lead" class="case-free reveal" data-d="3">
+        <div>
+          <span class="tag">Свободно</span>
+          <h4>Здесь может быть ваш сайт</h4>
+        </div>
+        <span class="btn btn-ink">Занять место</span>
+      </a>
+    </div>
+    <p class="note-concept">Концепты — неофициальные макеты, сделанные по собственной инициативе. Не являются сайтами указанных компаний.</p>
   </div>
-  <p class="note-concept">Концепты — неофициальные макеты, сделанные по собственной инициативе. Не являются сайтами указанных компаний.</p>
 </section>
 
 <!-- ============ FAQ ============ -->
 <section id="faq">
-  <div class="sec-head">
-    <div>
-      <span class="eyebrow">06 / Вопросы</span>
-      <h2 class="disp reveal">FAQ</h2>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="ghost-num">06</span>
+        <span class="eyebrow">Вопросы</span>
+        <h2 class="disp reveal left">FAQ</h2>
+      </div>
+    </div>
+    <div class="faq">
+      <details class="reveal"><summary>Как проходит оплата?</summary><p>50% предоплата перед стартом, 50% — после того, как вы приняли готовую работу. Оплата переводом на карту.</p></details>
+      <details class="reveal"><summary>Что нужно от меня для старта?</summary><p>Описание бизнеса, тексты и фото (если есть), примеры сайтов, которые нравятся. Если материалов нет — помогу со структурой и текстами.</p></details>
+      <details class="reveal"><summary>Смогу ли я сам менять контент?</summary><p>Да. На тарифе «Про» будет админ-панель, на остальных — пошаговая инструкция. Или просто пишите мне — внесу правки.</p></details>
+      <details class="reveal"><summary>Домен и хостинг входят в стоимость?</summary><p>Оплачиваются отдельно (домен от 300 ₽ в год) и оформляются на вас. Я помогу всё выбрать и настроить.</p></details>
+      <details class="reveal"><summary>Сколько правок можно вносить?</summary><p>Две итерации правок на каждом этапе включены в стоимость. Мелкие правки в течение периода поддержки — бесплатно.</p></details>
     </div>
   </div>
-  <details><summary>Как проходит оплата?</summary><p>50% предоплата перед стартом, 50% — после того, как вы приняли готовую работу. Оплата переводом на карту.</p></details>
-  <details><summary>Что нужно от меня для старта?</summary><p>Описание бизнеса, тексты и фото (если есть), примеры сайтов, которые нравятся. Если материалов нет — помогу со структурой и текстами.</p></details>
-  <details><summary>Смогу ли я сам менять контент?</summary><p>Да. На тарифе «Про» будет админ-панель, на остальных — пошаговая инструкция. Или просто пишите мне — внесу правки.</p></details>
-  <details><summary>Домен и хостинг входят в стоимость?</summary><p>Оплачиваются отдельно (домен от 300 ₽ в год) и оформляются на вас. Я помогу всё выбрать и настроить.</p></details>
-  <details><summary>Сколько правок можно вносить?</summary><p>Две итерации правок на каждом этапе включены в стоимость. Мелкие правки в течение периода поддержки — бесплатно.</p></details>
 </section>
 
 <!-- ============ CONTACT ============ -->
 <section id="contact">
-  <div class="sec-head">
-    <div>
-      <span class="eyebrow">07 / Контакты</span>
-      <h2 class="disp reveal">Давайте<br><em>работать</em></h2>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="ghost-num">07</span>
+        <span class="eyebrow">Контакты</span>
+        <h2 class="disp reveal left">Давайте<br><em>работать</em></h2>
+      </div>
+      <p class="reveal" data-d="1">Опишите задачу в паре предложений — отвечу в течение нескольких часов и предложу решение с ценой и сроками.</p>
     </div>
-    <p class="reveal">Опишите задачу в паре предложений — отвечу в течение нескольких часов и предложу решение с ценой и сроками.</p>
-  </div>
 
-  <div class="lead" id="lead">
-    <div class="lead-info">
-      <h3>Оставьте заявку</h3>
-      <p>Заполнение займёт минуту. Я свяжусь с вами удобным способом и бесплатно оценю проект.</p>
-      <ul class="lead-perks">
-        <li>Ответ в течение нескольких часов</li>
-        <li>Бесплатная консультация и оценка сроков</li>
-        <li>Фиксированная цена до начала работ</li>
-        <li>Никакого спама — только по вашей заявке</li>
-      </ul>
+    <div class="lead" id="lead">
+      <div class="lead-info reveal">
+        <h3>Оставьте заявку</h3>
+        <p>Заполнение займёт минуту. Я свяжусь с вами удобным способом и бесплатно оценю проект.</p>
+        <ul class="lead-perks">
+          <li>Ответ в течение нескольких часов</li>
+          <li>Бесплатная консультация и оценка сроков</li>
+          <li>Фиксированная цена до начала работ</li>
+          <li>Никакого спама — только по вашей заявке</li>
+        </ul>
+      </div>
+      <div class="ya-form">
+        <iframe src="https://forms.yandex.ru/u/6aaf559895add50ecaef6a3a/?iframe=1" frameborder="0" name="ya-form-6aaf559895add50ecaef6a3a" width="100%" height="830" title="Форма заявки" loading="lazy"></iframe>
+      </div>
     </div>
-    <div class="ya-form">
-      <iframe src="https://forms.yandex.ru/u/6aaf559895add50ecaef6a3a/?iframe=1" frameborder="0" name="ya-form-6aaf559895add50ecaef6a3a" width="100%" height="830" title="Форма заявки" loading="lazy"></iframe>
-    </div>
-  </div>
 
-  <div class="socials">
-    <a href="https://t.me/klozifi" class="social" target="_blank" rel="noopener"><span class="social-ico"><svg viewBox="0 0 24 24"><path d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.4l-.4 4-1.5-4.8 11-6.9-9.1 7.7Z" fill="currentColor"/></svg></span><span class="social-txt"><b>Telegram</b><small>@klozifi</small></span></a>
-    <a href="tel:+79830221484" class="social"><span class="social-ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1Z" fill="currentColor"/></svg></span><span class="social-txt"><b>Позвонить</b><small>+7 983 022-14-84</small></span></a>
-    <a href="mailto:klozifi@mail.ru" class="social"><span class="social-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="social-txt"><b>Почта</b><small>klozifi@mail.ru</small></span></a>
+    <div class="socials">
+      <a href="https://t.me/klozifi" class="social reveal" target="_blank" rel="noopener"><span class="social-ico"><svg viewBox="0 0 24 24"><path d="M21.4 4.2 2.9 11.3c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.8-1.4-1.5ZM9.6 14.4l-.4 4-1.5-4.8 11-6.9-9.1 7.7Z" fill="currentColor"/></svg></span><span class="social-txt"><b>Telegram</b><small>@klozifi</small></span></a>
+      <a href="tel:+79830221484" class="social reveal" data-d="1"><span class="social-ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1l-2.3 2.1Z" fill="currentColor"/></svg></span><span class="social-txt"><b>Позвонить</b><small>+7 983 022-14-84</small></span></a>
+      <a href="mailto:klozifi@mail.ru" class="social reveal" data-d="2"><span class="social-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="social-txt"><b>Почта</b><small>klozifi@mail.ru</small></span></a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="foot-col">
-    <span class="foot-brand"><img src="logo-new.svg" alt="" width="24" height="24">KLOZIFI</span>
-    <span>© <span id="year"></span> · Веб-разработка, Telegram-боты, AI-агенты</span>
-  </div>
-  <div class="foot-col">
-    <b>Исполнитель</b>
-    <span>Шейко Артём Витальевич</span>
-    <span>ИНН 263216390899</span>
-    <span><a href="mailto:klozifi@mail.ru" class="foot-link">klozifi@mail.ru</a> · <a href="https://t.me/klozifi" class="foot-link" target="_blank" rel="noopener">@klozifi</a></span>
-  </div>
-  <div class="foot-col">
-    <b>Документы</b>
-    <a href="privacy.html" class="foot-link">Политика конфиденциальности</a>
-    <a href="terms.html" class="foot-link">Условия работы</a>
-    <a href="terms.html#refund" class="foot-link">Отказ от услуги и возврат</a>
+  <div class="wrap foot">
+    <div>
+      <span class="foot-brand"><img src="logo-new.svg" alt="" width="26" height="26">KLOZIFI</span>
+      <span>© <span id="year"></span> · Веб-разработка, Telegram-боты, AI-агенты</span>
+    </div>
+    <div>
+      <b>Исполнитель</b>
+      <span>Шейко Артём Витальевич</span><br>
+      <span>ИНН 263216390899</span><br>
+      <a href="mailto:klozifi@mail.ru" class="foot-link">klozifi@mail.ru</a>
+      <a href="https://t.me/klozifi" class="foot-link" target="_blank" rel="noopener">@klozifi</a>
+    </div>
+    <div>
+      <b>Документы</b>
+      <a href="privacy.html" class="foot-link">Политика конфиденциальности</a>
+      <a href="terms.html" class="foot-link">Условия работы</a>
+      <a href="terms.html#refund" class="foot-link">Отказ от услуги и возврат</a>
+    </div>
   </div>
 </footer>
 
@@ -658,18 +714,34 @@
   document.getElementById('burger').onclick = () => nav.classList.toggle('open');
   document.querySelectorAll('#menu a').forEach(a => a.onclick = () => nav.classList.remove('open'));
 
-  // появление блоков при прокрутке
+  // появление блоков + счётчики цифр
+  const animateCount = el => {
+    const target = +el.dataset.count, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+    const dur = 900, t0 = performance.now();
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur);
+      const val = Math.round(target * (1 - Math.pow(1 - k, 3)));
+      el.textContent = pre + val.toLocaleString('ru-RU') + suf;
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }), {threshold:.12});
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll?.('[data-count]').forEach(animateCount);
+    io.unobserve(e.target);
+  }), {threshold:.14});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // графика на первом экране следует за курсором
-  const artMove = document.getElementById('artMove');
-  if (artMove && matchMedia('(pointer:fine)').matches) {
+  // графика первого экрана: два слоя с разной глубиной + лёгкий наклон
+  const l1 = document.getElementById('artLayer1'), l2 = document.getElementById('artLayer2');
+  if (l1 && matchMedia('(pointer:fine)').matches) {
     addEventListener('mousemove', e => {
-      const x = (e.clientX / innerWidth - .5), y = (e.clientY / innerHeight - .5);
-      artMove.style.transform = `translate(${x * 26}px, ${y * 22}px)`;
+      const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      l1.style.transform = `translate(${x * 14}px, ${y * 12}px)`;
+      l2.style.transform = `translate(${x * 30}px, ${y * 26}px)`;
     }, {passive:true});
   }
 
