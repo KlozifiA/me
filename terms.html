@@ -12,30 +12,35 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0b0b0d;--card:#131317;--line:rgba(255,255,255,.08);--muted:#8a8a93}
+  :root{--bg:#f2f0ed;--paper:#fbfaf8;--ink:#111111;--muted:#6b6b6b;--accent:#ff4d2e;--pad:clamp(16px,4vw,64px)}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:#e6e6ea;font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  body{position:relative;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.24;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E")}
   a{color:inherit}
-  .wrap{width:min(860px,100% - 32px);margin-inline:auto}
-  header{padding:22px 0;border-bottom:1px solid var(--line)}
-  header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
-  .logo{display:flex;align-items:center;gap:10px;font-family:Unbounded;font-weight:900;font-size:18px;letter-spacing:.04em;text-decoration:none;color:#f4f4f2}
-  .logo img{width:32px;height:32px;border-radius:9px}
-  .back{font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.2)}
-  .back:hover{border-color:#fff}
-  main{padding:56px 0 80px}
-  h1{font-family:Unbounded;font-weight:900;font-size:clamp(26px,5vw,42px);line-height:1.15;text-transform:uppercase;color:#f4f4f2;margin-bottom:14px}
-  .date{color:var(--muted);margin-bottom:40px}
-  h2{font-family:Unbounded;font-weight:700;font-size:18px;text-transform:uppercase;color:#f4f4f2;margin:38px 0 12px;scroll-margin-top:24px}
+  .wrap{width:min(900px,100% - 2*var(--pad));margin-inline:auto}
+  header{border-bottom:4px solid var(--ink);background:var(--bg)}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0}
+  .logo{display:flex;align-items:center;gap:12px;font-family:Archivo,sans-serif;font-weight:900;font-size:19px;letter-spacing:.06em;text-decoration:none}
+  .logo img{width:30px;height:30px}
+  .back{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:12px 20px;border:3px solid var(--ink);background:var(--paper);box-shadow:5px 5px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+  .back:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+  main{padding:clamp(36px,6vw,72px) 0 clamp(50px,8vw,90px)}
+  h1{font-family:Archivo,sans-serif;font-weight:900;font-size:clamp(30px,6vw,60px);line-height:.92;text-transform:uppercase;letter-spacing:-.03em;margin-bottom:16px}
+  .date{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:44px}
+  h2{font-family:Archivo,sans-serif;font-weight:800;font-size:clamp(18px,2.2vw,24px);text-transform:uppercase;margin:40px 0 14px;scroll-margin-top:24px}
   p{margin-bottom:12px}
   ul{margin:0 0 12px 22px}
-  li{margin-bottom:6px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 24px;margin-bottom:12px}
+  li{margin-bottom:7px}
+  .card{background:var(--paper);border:3px solid var(--ink);box-shadow:7px 7px 0 rgba(17,17,17,.18);padding:24px 26px;margin-bottom:14px}
   .card p:last-child{margin-bottom:0}
-  b{color:#f4f4f2}
-  footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:14px}
+  b{font-weight:700}
+  a[href^="mailto"],a[href^="https://t.me"],main a[href$=".html"]{text-decoration:underline;text-underline-offset:3px}
+  main a:hover{color:var(--accent)}
+  footer{background:var(--ink);color:#b9b9b9;padding:28px 0;font-size:14px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 </style>
 </head>
 <body>
@@ -108,7 +113,7 @@
 </main>
 
 <footer>
-  <div class="wrap">© 2026 Klozifi · Шейко Артём Витальевич</div>
+  <div class="wrap"><span>© 2026 Klozifi · Шейко Артём Витальевич</span><a href="/" style="color:#fff;text-decoration:underline;text-underline-offset:3px">klozifi.ru</a></div>
 </footer>
 </body>
 </html>

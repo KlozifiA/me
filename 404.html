@@ -8,24 +8,30 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-120.png" type="image/png" sizes="120x120">
 <link rel="icon" href="/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Inter:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  :root{--bg:#f2f0ed;--paper:#fbfaf8;--ink:#111111;--muted:#6b6b6b;--accent:#ff4d2e}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px 16px;text-align:center;background:#0b0b0d;color:#f4f4f2;font-family:Manrope,system-ui,sans-serif;overflow:hidden;position:relative}
-  body::before{content:"";position:absolute;width:800px;height:800px;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(123,47,247,.28),rgba(241,7,163,.12) 35%,transparent 65%);pointer-events:none}
-  body > *{position:relative}
-  .logo{width:56px;height:56px;border-radius:15px;box-shadow:0 8px 28px rgba(176,14,216,.4)}
-  h1{font-family:Unbounded;font-weight:900;font-size:clamp(110px,28vw,240px);line-height:1;letter-spacing:-.04em;background:linear-gradient(180deg,#e9edf2,#9aa6b2);-webkit-background-clip:text;background-clip:text;color:transparent}
-  p{color:#8a8a93;font-size:18px;max-width:420px}
-  a.btn{display:inline-block;margin-top:8px;padding:18px 38px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#fff;text-decoration:none;background:linear-gradient(90deg,#6a1bff,#b00ed8,#ff2d8a);box-shadow:0 10px 30px rgba(176,14,216,.4);transition:transform .25s}
-  a.btn:hover{transform:translateY(-2px)}
+  body{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:40px 20px;text-align:center;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;overflow:hidden}
+  body::after{content:"";position:fixed;inset:0;z-index:5;pointer-events:none;opacity:.24;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E")}
+  .logo{display:flex;align-items:center;gap:12px;font-family:Archivo,sans-serif;font-weight:900;font-size:20px;letter-spacing:.06em;text-decoration:none;color:inherit}
+  .logo img{width:32px;height:32px}
+  h1{font-family:Archivo,sans-serif;font-weight:900;font-size:clamp(96px,26vw,220px);line-height:.85;letter-spacing:-.05em}
+  h1 span{color:var(--accent)}
+  p{color:var(--muted);font-size:17px;max-width:420px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;margin-top:10px;padding:18px 34px;border:3px solid var(--ink);background:var(--accent);color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;box-shadow:6px 6px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+  .btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+  .mono{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 </style>
 </head>
 <body>
-  <img class="logo" src="/logo.svg" alt="Klozifi" width="56" height="56">
-  <h1>404</h1>
+  <a href="/" class="logo"><img src="/logo.svg" alt="" width="32" height="32">KLOZIFI</a>
+  <span class="mono">Ошибка 404</span>
+  <h1>4<span>0</span>4</h1>
   <p>Такой страницы нет. Возможно, ссылка устарела или в адресе опечатка.</p>
   <a class="btn" href="/">На главную</a>
 </body>
